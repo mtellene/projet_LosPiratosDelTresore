@@ -11,8 +11,11 @@ public class Boucanier implements Pirate {
         System.out.println("Création d'un" +Nom+ "avec" +Arme);
     }
 
-    @Override
     public void Attaque() {
         //if case_corsaire = case_boucanier
+    }
+
+    public void Deplacement(){
+        //a faire
     }
 }

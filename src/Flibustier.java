@@ -11,7 +11,6 @@ public class Flibustier implements Pirate{
         System.out.println("Création d'un" +Nom+ "avec" +Arme);
     }
 
-    @Override
     public void Attaque() {
         /*
         if case_corsaire = case_flibustier+x
@@ -23,5 +22,9 @@ public class Flibustier implements Pirate{
         elseif case_corsaire = case_flibustier+x-y
         elseif case_corsaire = case_flibustier-x-y
          */
+    }
+
+    public void Deplacement(){
+        //a faire
     }
 }
