@@ -1,14 +1,20 @@
-import java.util.Arrays;
+import java.util.Random;
+import java.util.Scanner;
 
 public class main {
 
     public static void main(String[] args) {
-        System.out.println("LosPiratos");
-        int tailleDeLaBoucle = 10;
-        String[] matriceTest = new String[tailleDeLaBoucle];
-        for (int i = 0; i < tailleDeLaBoucle; i++) {
-            matriceTest[i] = "Ligne"+i;
-            }
-        //afficher tab
+        Scanner x = new Scanner(System.in);
+        System.out.println("Entrez le nombre de pirates à créer : ");
+        String str = x.nextLine();
+
+        int coucou = Integer.parseInt(str);
+        Random random = new Random();
+        int nb = random.nextInt(coucou + 1); //chiffre random
+
+        for(int i=0 ; i<nb ; i++){ Flibustier flibustier = new Flibustier(); }
+        for(int i=nb ; i<coucou ; i++){ Boucanier boucanier = new Boucanier(); }
+
+
     }
 }
