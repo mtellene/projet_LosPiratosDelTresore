@@ -22,13 +22,13 @@ public class main {
 
 
     public static void main(String[] args) {
-        char[][] matrix = new char[15][15];
-        fillMatrix(matrix,15);
-        for (int i=0; i < 30 ; i++){
+        char[][] matrix = new char[5][5];
+        fillMatrix(matrix,5);
+        for (int i=0; i < 10 ; i++){
             Random random = new Random();
-            matrix[random.nextInt(15)][random.nextInt(15)] = 'x' ;
+            matrix[random.nextInt(5)][random.nextInt(5)] = 'x' ;
         }
-        displayMatrix(matrix,15);
+        displayMatrix(matrix,5);
         System.out.println ("LosPiratos");
     }
 }
