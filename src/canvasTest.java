@@ -9,6 +9,7 @@ import java.util.Random;
 
 public class canvasTest extends Application {
 
+    // display les elements sable , eau , foret
     public static void displayMatrix(GraphicsContext gc,char[][] M, int size){
         for (int i = 0 ; i < size ; i++){
             for (int j=0 ; j< size ; j++){
@@ -24,6 +25,8 @@ public class canvasTest extends Application {
             System.out.println ();
         }
     }
+
+    // focntion qui display les objets et les personnages , elle parcourt la matrice et verifie si la case a un objet ou un personnage
 
     public static void fillMatrix(char[][] M, int size){
         for (int i = 0 ; i < size ; i++){
@@ -74,9 +77,6 @@ public class canvasTest extends Application {
             matrix[radomI][radomJ] = 'a';
         }
         displayMatrix(gc,matrix,15);
-
-
-
 
 
 
