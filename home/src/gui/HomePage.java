@@ -3,11 +3,12 @@ import javafx.application.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.*;
-public class HomePage extends Application implements EventHandler<ActionEvent>{
+public class HomePage extends Application {
 	//creation du button
 	Button button1 = new Button("JOUER");
 	Button button2 = new Button("Recharger");
@@ -23,14 +24,24 @@ public class HomePage extends Application implements EventHandler<ActionEvent>{
 		//Ajouter scene pirate au Stage
 		FirstPage.setScene(pirate);	
 		VBox Box1= new VBox();
-		Box1.setPadding(new Insets(10));
-		Box1.setSpacing(10);
+		Box1.setPadding(new Insets(40));
+		Box1.setSpacing(40);
+		Box1.setAlignment(Pos.CENTER);
 		button1.setPrefSize(180, 20);
+		//Passer a une autre fenetre aprés clique sur Jouer
 		button1.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
-				
+				FirstPage.setTitle("Level");
+				VBox Box1= new VBox();
+				Scene scene2 = new Scene (Box1,500,300);
+				FirstPage.setScene(scene2);	
+				Label label = new Label("Level");
+				Button b1 = new Button("Facile");
+				Button b2 = new Button("Moyene");
+				Button b3 = new Button("Difficile");
+				Box1.getChildren().addAll(b1,b2,b3,label);
 			}
 			
 		});
@@ -54,9 +65,5 @@ public class HomePage extends Application implements EventHandler<ActionEvent>{
 		launch(args);
 
 	}
-	@Override
-	public void handle(ActionEvent event) {
-		
-	}
-
+	
 }
