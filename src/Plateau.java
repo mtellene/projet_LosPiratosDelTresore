@@ -7,20 +7,21 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import java.util.Random;
 
-public class canvasTest extends Application {
+public class Plateau extends Application {
+    Case[][] matrix = new Case[15][15];
+
 
     // display les elements sable , eau , foret
-    public static void displayMatrix(GraphicsContext gc, Case[][] M, int size){
+    public void displayMatrix(GraphicsContext gc, Case[][] M, int size){
         for (int i = 0 ; i < size ; i++){
             for (int j=0 ; j< size ; j++){
-                if (M[i][j] == 'x'){
+                if (M[i][j].getType().equals("eau")){
                     gc.setFill(Color.BLUE);
                     gc.fillRect(j*20,i*20,20,20);
-                }else if(M[i][j] == 'a'){
+                }else if(M[i][j].getType().equals("foret")){
                     gc.setFill(Color.GREEN);
                     gc.fillRect(j*20,i*20,20,20);
                 }
-                System.out.print(M[i][j]);
             }
             System.out.println ();
         }
@@ -28,12 +29,16 @@ public class canvasTest extends Application {
 
     // focntion qui display les objets et les personnages , elle parcourt la matrice et verifie si la case a un objet ou un personnage
 
-    public static void fillMatrix(Case[][] M, int size){
+    public void fillMatrix(Case[][] M, int size){
         for (int i = 0 ; i < size ; i++){
             for (int j=0 ; j< size ; j++){
-                M[i][j] = '-';
+                M[i][j] = new Sable(i,j);
             }
         }
+    }
+
+    public void setEau(){
+        
     }
 
     public static void main(String[] args)
@@ -49,19 +54,18 @@ public class canvasTest extends Application {
         canvas.setWidth(300);
         // Set the height of the Canvas
         canvas.setHeight(300);
-
         // Get the graphics context of the canvas
         GraphicsContext gc = canvas.getGraphicsContext2D();
-
-
         // Create the Pane
         Pane root = new Pane();
-
         root.setStyle("-fx-background-color: LemonChiffon ");
         // Add the Canvas to the Pane
         root.getChildren().add(canvas);
 
-        Case[][] matrix = new Case[15][15];
+
+
+
+
         fillMatrix(matrix,15);
         int radomI, radomJ;
         for (int i=0; i < 11 ; i++){
@@ -76,9 +80,11 @@ public class canvasTest extends Application {
                 radomI = random.nextInt(15);
                 radomJ = random.nextInt(15);
             }while(matrix[radomI][radomJ].getType() == "eau");
-            matrix[radomI][radomJ] = foret;
+            matrix[radomI][radomJ].setType("foret");
         }
         displayMatrix(gc,matrix,15);
+
+
 
 
 
