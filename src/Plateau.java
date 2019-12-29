@@ -5,6 +5,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+
 import java.util.Random;
 
 public class Plateau extends Application {
@@ -12,37 +13,54 @@ public class Plateau extends Application {
 
 
     // display les elements sable , eau , foret
-    public void displayMatrix(GraphicsContext gc, Case[][] M, int size){
-        for (int i = 0 ; i < size ; i++){
-            for (int j=0 ; j< size ; j++){
-                if (M[i][j].getType().equals("eau")){
+    public void displayMatrix(GraphicsContext gc) {
+        for (int i = 0; i < 15; i++) {
+            for (int j = 0; j < 15; j++) {
+                if (matrix[i][j].getType().equals("eau")) {
                     gc.setFill(Color.BLUE);
-                    gc.fillRect(j*20,i*20,20,20);
-                }else if(M[i][j].getType().equals("foret")){
+                    gc.fillRect(j * 20, i * 20, 20, 20);
+                } else if (matrix[i][j].getType().equals("foret")) {
                     gc.setFill(Color.GREEN);
-                    gc.fillRect(j*20,i*20,20,20);
+                    gc.fillRect(j * 20, i * 20, 20, 20);
                 }
             }
-            System.out.println ();
+            System.out.println();
         }
     }
 
     // focntion qui display les objets et les personnages , elle parcourt la matrice et verifie si la case a un objet ou un personnage
 
-    public void fillMatrix(Case[][] M, int size){
-        for (int i = 0 ; i < size ; i++){
-            for (int j=0 ; j< size ; j++){
-                M[i][j] = new Sable(i,j);
+    public void fillMatrix() {
+        for (int i = 0; i < 15; i++) {
+            for (int j = 0; j < 15; j++) {
+                matrix[i][j] = new Sable(i, j);
             }
         }
     }
 
-    public void setEau(){
-        
+    public void setEau() {
+        int radomI, radomJ;
+        for (int i = 0; i < 11; i++) {
+            Random random = new Random();
+            radomI = random.nextInt(15);
+            radomJ = random.nextInt(15);
+            matrix[radomI][radomJ] = new Eau(radomI, radomJ);
+        }
     }
 
-    public static void main(String[] args)
-    {
+    public void setForet(){
+        int radomI, radomJ;
+        for (int i = 0; i < 11; i++) {
+            Random random = new Random();
+            do {
+                radomI = random.nextInt(15);
+                radomJ = random.nextInt(15);
+            } while (matrix[radomI][radomJ].getType() == "eau");
+            matrix[radomI][radomJ].setType("foret");
+        }
+    }
+
+    public static void main(String[] args) {
         Application.launch(args);
     }
 
@@ -63,29 +81,11 @@ public class Plateau extends Application {
         root.getChildren().add(canvas);
 
 
-
-
-
-        fillMatrix(matrix,15);
-        int radomI, radomJ;
-        for (int i=0; i < 11 ; i++){
-            Random random = new Random();
-            radomI = random.nextInt(15);
-            radomJ = random.nextInt(15);
-            matrix[radomI][radomJ] = new Eau(radomI,radomJ) ;
-        }
-        for (int i=0; i < 11 ; i++){
-            Random random = new Random();
-            do {
-                radomI = random.nextInt(15);
-                radomJ = random.nextInt(15);
-            }while(matrix[radomI][radomJ].getType() == "eau");
-            matrix[radomI][radomJ].setType("foret");
-        }
-        displayMatrix(gc,matrix,15);
-
-
-
+        fillMatrix();
+        // Eau before Foret
+        setEau();
+        setForet();
+        displayMatrix(gc);
 
 
         // Create the Scene
