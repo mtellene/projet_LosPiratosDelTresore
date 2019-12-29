@@ -10,7 +10,7 @@ import java.util.Random;
 public class canvasTest extends Application {
 
     // display les elements sable , eau , foret
-    public static void displayMatrix(GraphicsContext gc,char[][] M, int size){
+    public static void displayMatrix(GraphicsContext gc, Case[][] M, int size){
         for (int i = 0 ; i < size ; i++){
             for (int j=0 ; j< size ; j++){
                 if (M[i][j] == 'x'){
@@ -28,7 +28,7 @@ public class canvasTest extends Application {
 
     // focntion qui display les objets et les personnages , elle parcourt la matrice et verifie si la case a un objet ou un personnage
 
-    public static void fillMatrix(char[][] M, int size){
+    public static void fillMatrix(Case[][] M, int size){
         for (int i = 0 ; i < size ; i++){
             for (int j=0 ; j< size ; j++){
                 M[i][j] = '-';
@@ -61,20 +61,22 @@ public class canvasTest extends Application {
         // Add the Canvas to the Pane
         root.getChildren().add(canvas);
 
-        char[][] matrix = new char[15][15];
+        Case[][] matrix = new Case[15][15];
         fillMatrix(matrix,15);
+        int radomI, radomJ;
         for (int i=0; i < 11 ; i++){
             Random random = new Random();
-            matrix[random.nextInt(15)][random.nextInt(15)] = 'x' ;
+            radomI = random.nextInt(15);
+            radomJ = random.nextInt(15);
+            matrix[radomI][radomJ] = new Eau(radomI,radomJ) ;
         }
         for (int i=0; i < 11 ; i++){
             Random random = new Random();
-            int radomI, radomJ;
             do {
                 radomI = random.nextInt(15);
                 radomJ = random.nextInt(15);
-            }while(matrix[radomI][radomJ] == 'x');
-            matrix[radomI][radomJ] = 'a';
+            }while(matrix[radomI][radomJ].getType() == "eau");
+            matrix[radomI][radomJ] = foret;
         }
         displayMatrix(gc,matrix,15);
 
