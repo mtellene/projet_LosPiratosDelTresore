@@ -25,4 +25,5 @@ public class Case {
     public void setType(String type) {
         this.type = type;
     }
+
 }

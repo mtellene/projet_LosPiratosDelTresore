@@ -2,38 +2,72 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Plateau extends Application {
-    Case[][] matrix = new Case[15][15];
-
+    public static Case[][] matrice = new Case[15][15];
+    public static ArrayList<CaseAccessible> caseAccessibles = new ArrayList<CaseAccessible>();
 
     // display les elements sable , eau , foret
-    public void displayMatrix(GraphicsContext gc) {
+    public void displayMatrice(GraphicsContext gc) {
         for (int i = 0; i < 15; i++) {
             for (int j = 0; j < 15; j++) {
-                if (matrix[i][j].getType().equals("eau")) {
+                if (!matrice[i][j].getType().equals("eau")){
+                    CaseAccessible c = (CaseAccessible) matrice[i][j];
+                    if (matrice[i][j].getType().equals("foret")) {
+                        gc.setFill(Color.GREEN);
+                        gc.fillRect(j * 20, i * 20, 20, 20);
+                    }
+                    if (!c.personages.isEmpty()){
+                        for (Personnage p : c.personages){
+                            File file = openPersonageIcon(p);
+                            try {
+                                String localUrl = file.toURI().toURL().toString();
+                                Image image = new Image(localUrl);
+
+                                gc.drawImage(image,c.getX()*20,c.getY()*20,20,20);
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                }else{
                     gc.setFill(Color.BLUE);
                     gc.fillRect(j * 20, i * 20, 20, 20);
-                } else if (matrix[i][j].getType().equals("foret")) {
+                }
+
+                /*// les cases
+                if (matrice[i][j].getType().equals("eau")) {
+                    gc.setFill(Color.BLUE);
+                    gc.fillRect(j * 20, i * 20, 20, 20);
+                } else if (matrice[i][j].getType().equals("foret")) {
                     gc.setFill(Color.GREEN);
                     gc.fillRect(j * 20, i * 20, 20, 20);
-                }
+                }*/
+
             }
-            System.out.println();
         }
     }
 
     // focntion qui display les objets et les personnages , elle parcourt la matrice et verifie si la case a un objet ou un personnage
 
-    public void fillMatrix() {
+    public void fillMatrice() {
+        setEau();
+        setForet();
         for (int i = 0; i < 15; i++) {
             for (int j = 0; j < 15; j++) {
-                matrix[i][j] = new Sable(i, j);
+                if (matrice[i][j] == null){
+                    matrice[i][j] = new Sable(i, j);
+                    caseAccessibles.add((CaseAccessible) matrice[i][j]);
+                }
             }
         }
     }
@@ -44,7 +78,7 @@ public class Plateau extends Application {
             Random random = new Random();
             radomI = random.nextInt(15);
             radomJ = random.nextInt(15);
-            matrix[radomI][radomJ] = new Eau(radomI, radomJ);
+            matrice[radomI][radomJ] = new Eau(radomI, radomJ);
         }
     }
 
@@ -55,8 +89,48 @@ public class Plateau extends Application {
             do {
                 radomI = random.nextInt(15);
                 radomJ = random.nextInt(15);
-            } while (matrix[radomI][radomJ].getType() == "eau");
-            matrix[radomI][radomJ].setType("foret");
+            } while (matrice[radomI][radomJ] != null);
+            matrice[radomI][radomJ] = new Foret(radomI, radomJ);
+            caseAccessibles.add((CaseAccessible) matrice[radomI][radomJ]);
+        }
+    }
+
+
+    protected File openPersonageIcon(Object personage){
+        String path = "Icons/";
+        if (Flibustier.class.equals(personage.getClass())) {
+            return new File(path + "flibustier.png");
+        } else if (Boucanier.class.equals(personage.getClass())) {
+            return new File(path + "boucanier.jpg");
+        } else if (Corsaire.class.equals(personage.getClass())) {
+            return new File(path + "corsaire.png");
+        } else {
+            return null;
+        }
+    }
+
+    public void addPersonage(){
+        for (int i = 1; i < 3 ; i++){
+            int index;
+            Random random = new Random();
+            index = random.nextInt(caseAccessibles.size());
+            Flibustier f = new Flibustier();
+            caseAccessibles.get(index).personages.add(f);
+        }
+        for (int i = 1; i < 3 ; i++){
+            int index;
+            Random random = new Random();
+            index = random.nextInt(caseAccessibles.size());
+            Boucanier b = new Boucanier();
+            caseAccessibles.get(index).personages.add(b);
+        }
+
+        for (int i = 1; i < 3 ; i++){
+            int index;
+            Random random = new Random();
+            index = random.nextInt(caseAccessibles.size());
+            Corsaire c = new Corsaire();
+            caseAccessibles.get(index).personages.add(c);
         }
     }
 
@@ -81,11 +155,14 @@ public class Plateau extends Application {
         root.getChildren().add(canvas);
 
 
-        fillMatrix();
-        // Eau before Foret
-        setEau();
-        setForet();
-        displayMatrix(gc);
+        fillMatrice();
+        addPersonage();
+        displayMatrice(gc);
+
+        /*Flibustier f = new Flibustier();
+        f.deplacement((CaseAccessible) matrice[10][10]);
+        Boucanier b = new Boucanier();
+        b.deplacement((CaseAccessible) matrice[10][10]);*/
 
 
         // Create the Scene

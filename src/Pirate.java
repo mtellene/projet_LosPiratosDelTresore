@@ -1,5 +1,3 @@
-public interface Pirate {
-
-    public void Attaque();
-    public void Deplacement();
+public abstract class Pirate implements Personnage {
+    public abstract void attaque();
 }

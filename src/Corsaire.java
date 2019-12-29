@@ -1,4 +1,4 @@
-public class Corsaire {
+public class Corsaire implements Personnage {
 
     //variables
     boolean pelle = false;
@@ -55,4 +55,8 @@ public class Corsaire {
         return pWin;
     }
 
+    @Override
+    public void deplacement(CaseAccessible postion) {
+
+    }
 }
