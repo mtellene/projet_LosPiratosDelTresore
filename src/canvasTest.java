@@ -63,11 +63,11 @@ public class canvasTest extends Application {
 
         char[][] matrix = new char[15][15];
         fillMatrix(matrix,15);
-        for (int i=0; i < 10 ; i++){
+        for (int i=0; i < 11 ; i++){
             Random random = new Random();
             matrix[random.nextInt(15)][random.nextInt(15)] = 'x' ;
         }
-        for (int i=0; i < 5 ; i++){
+        for (int i=0; i < 11 ; i++){
             Random random = new Random();
             int radomI, radomJ;
             do {
@@ -88,8 +88,5 @@ public class canvasTest extends Application {
         stage.setTitle("LosPiratosDelTresore");
         // Display the Stage
         stage.show();
-
-
-
     }
 }
