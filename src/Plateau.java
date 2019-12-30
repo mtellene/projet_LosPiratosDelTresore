@@ -23,7 +23,7 @@ public class Plateau extends Application {
                     CaseAccessible c = (CaseAccessible) matrice[i][j];
                     if (matrice[i][j].getType().equals("foret")) {
                         gc.setFill(Color.GREEN);
-                        gc.fillRect(j * 20, i * 20, 20, 20);
+                        gc.fillRect(i * 20, j * 20, 20, 20);
                     }
                     if (!c.personages.isEmpty()){
                         for (Personnage p : c.personages){
@@ -41,7 +41,7 @@ public class Plateau extends Application {
 
                 }else{
                     gc.setFill(Color.BLUE);
-                    gc.fillRect(j * 20, i * 20, 20, 20);
+                    gc.fillRect(i * 20, j * 20, 20, 20);
                 }
 
                 /*// les cases
@@ -109,29 +109,34 @@ public class Plateau extends Application {
         }
     }
 
-    public void addPersonage(){
-        for (int i = 1; i < 3 ; i++){
+    public Personnage addPersonage(){
+        Flibustier f = null;
+        for (int i = 1; i < 2 ; i++){
             int index;
             Random random = new Random();
             index = random.nextInt(caseAccessibles.size());
-            Flibustier f = new Flibustier();
+            f = new Flibustier(caseAccessibles.get(index));
             caseAccessibles.get(index).personages.add(f);
         }
-        for (int i = 1; i < 3 ; i++){
+        for (int i = 1; i <= 3 ; i++){
             int index;
             Random random = new Random();
             index = random.nextInt(caseAccessibles.size());
-            Boucanier b = new Boucanier();
+            Boucanier b = new Boucanier(caseAccessibles.get(index));
             caseAccessibles.get(index).personages.add(b);
         }
 
-        for (int i = 1; i < 3 ; i++){
+        for (int i = 1; i <= 3 ; i++){
             int index;
-            Random random = new Random();
-            index = random.nextInt(caseAccessibles.size());
-            Corsaire c = new Corsaire();
+            do{
+                Random random = new Random();
+                index = random.nextInt(caseAccessibles.size());
+            }while(caseAccessibles.get(index).getType().equals("foret"));
+            Corsaire c = new Corsaire(caseAccessibles.get(index));
+            System.out.println(caseAccessibles.get(index).getX()+ "  " +caseAccessibles.get(index).getY());
             caseAccessibles.get(index).personages.add(c);
         }
+        return f;
     }
 
     public static void main(String[] args) {
@@ -156,8 +161,13 @@ public class Plateau extends Application {
 
 
         fillMatrice();
-        addPersonage();
+        Flibustier f = (Flibustier) addPersonage();
         displayMatrice(gc);
+        canvas.setOnMouseClicked( e ->{
+           f.deplacement();
+           gc.clearRect(0,0,300,300);
+           displayMatrice(gc);
+        });
 
         /*Flibustier f = new Flibustier();
         f.deplacement((CaseAccessible) matrice[10][10]);

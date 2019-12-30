@@ -1,4 +1,4 @@
-public class Corsaire implements Personnage {
+public class Corsaire extends Personnage {
 
     //variables
     boolean pelle = false;
@@ -11,9 +11,8 @@ public class Corsaire implements Personnage {
     //case mais jsp comment mettre
 
     //methodes
-    public Corsaire(){
-        String nom = "Corsaire";
-        System.out.println("Création d'un" +nom);
+    public Corsaire(CaseAccessible c){
+        super(c);
     }
 
     public void Ramassage(){
@@ -55,8 +54,9 @@ public class Corsaire implements Personnage {
         return pWin;
     }
 
+
     @Override
-    public void deplacement(CaseAccessible postion) {
+    void deplacement() {
 
     }
 }

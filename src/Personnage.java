@@ -1,4 +1,9 @@
-public interface Personnage {
+public abstract class Personnage {
+    protected CaseAccessible postion;
 
-    void deplacement(CaseAccessible postion);
+    public Personnage(CaseAccessible c){
+        postion = c;
+    }
+
+    abstract void deplacement();
 }

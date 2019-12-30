@@ -3,17 +3,19 @@ import java.util.Random;
 public class Boucanier extends Pirate {
 
     //methodes
-    public Boucanier() {
-        String Nom = "Boucanier";
-        String Arme = "Machette";
-        System.out.println("Création d'un " +Nom+ " avec " +Arme);
+    public Boucanier(CaseAccessible c) {
+        super(c);
+    }
+
+    @Override
+    void deplacement() {
+
     }
 
     public void attaque() {
         //if case_corsaire = case_boucanier
     }
 
-    @Override
     public void deplacement(CaseAccessible postion) {
         boolean deplace = false;
         Random random = new Random();
