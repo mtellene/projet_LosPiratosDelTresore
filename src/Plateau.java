@@ -1,11 +1,6 @@
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -114,7 +109,9 @@ public class Plateau {
             return new File(path + "flibustier.png");
         } else if (Boucanier.class.equals(personage.getClass())) {
             return new File(path + "boucanier.jpg");
-        } else if (Corsaire.class.equals(personage.getClass())) {
+        } else if (CorsaireNonJoueur.class.equals(personage.getClass())) {
+            return new File(path + "corsaire2.png");
+        } else if (CorsaireJoueur.class.equals(personage.getClass())) {
             return new File(path + "corsaire.png");
         } else {
             return null;
@@ -122,82 +119,59 @@ public class Plateau {
     }
 
     public Personnage addPersonage(){
-        Flibustier f = null;
-        Boucanier b = null;
-        for (int i = 1; i < 2 ; i++){
+        for (int i = 1; i <= 3 ; i++){
             int index;
             Random random = new Random();
             index = random.nextInt(caseAccessibles.size());
-            f = new Flibustier(caseAccessibles.get(index));
+            Flibustier f = new Flibustier(caseAccessibles.get(index));
             caseAccessibles.get(index).personages.add(f);
         }
         for (int i = 1; i <= 3 ; i++){
             int index;
             Random random = new Random();
             index = random.nextInt(caseAccessibles.size());
-            b = new Boucanier(caseAccessibles.get(index));
+            Boucanier b = new Boucanier(caseAccessibles.get(index));
             caseAccessibles.get(index).personages.add(b);
         }
 
-        for (int i = 1; i <= 3 ; i++){
+        for (int i = 1; i <= 2 ; i++){
             int index;
             do{
                 Random random = new Random();
                 index = random.nextInt(caseAccessibles.size());
             }while(caseAccessibles.get(index).getType().equals("foret"));
-            Corsaire c = new Corsaire(caseAccessibles.get(index));
-            System.out.println(caseAccessibles.get(index).getX()+ "  " +caseAccessibles.get(index).getY());
-            caseAccessibles.get(index).personages.add(c);
+            CorsaireNonJoueur cnj = new CorsaireNonJoueur(caseAccessibles.get(index));
+            caseAccessibles.get(index).personages.add(cnj);
         }
-        return f;
+        int index;
+        do{
+            Random random = new Random();
+            index = random.nextInt(caseAccessibles.size());
+        }while(caseAccessibles.get(index).getType().equals("foret"));
+        CorsaireJoueur cj = new CorsaireJoueur(caseAccessibles.get(index));
+        System.out.println(caseAccessibles.get(index).getX()+ "  " +caseAccessibles.get(index).getY());
+        caseAccessibles.get(index).personages.add(cj);
+
+
+        return cj;
     }
 
-    /*public static void main(String[] args) {
-        Application.launch(args);
+    public void deplacement(){
+        for (CaseAccessible caseA : caseAccessibles){
+            if(caseA.personages.size() > 0 ){
+                for(Personnage p : caseA.personages){
+                    if (!CorsaireJoueur.class.equals(p.getClass())){
+                        if (Flibustier.class.equals(p.getClass())){
+                            p.deplacement(2);
+                        }else {
+                            p.deplacement(1);
+                        }
+                    }
+                    if (caseA.personages.size() == 0){
+                        break;
+                    }
+                }
+            }
+        }
     }
-
-    @Override
-    public void start(Stage stage) throws Exception {
-        int n = 10;
-        int canvasWidthHeight = n*20;
-        // Create the Canvas
-        Canvas canvas = new Canvas(canvasWidthHeight, canvasWidthHeight);
-        // Set the width of the Canvas
-        canvas.setWidth(canvasWidthHeight);
-        // Set the height of the Canvas
-        canvas.setHeight(canvasWidthHeight);
-        // Get the graphics context of the canvas
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-        // Create the Pane
-        Pane root = new Pane();
-        root.setStyle("-fx-background-color: LemonChiffon ");
-        // Add the Canvas to the Pane
-        root.getChildren().add(canvas);
-
-
-        fillMatrice();
-        //Boucanier b = (Boucanier) addPersonage();
-        Flibustier f = (Flibustier) addPersonage();
-        displayMatrice(gc);
-        canvas.setOnMouseClicked( e ->{
-           f.deplacement();
-           gc.clearRect(0,0,canvasWidthHeight,canvasWidthHeight);
-           displayMatrice(gc);
-        });
-
-        *//*Flibustier f = new Flibustier();
-        f.deplacement((CaseAccessible) matrice[10][10]);
-        Boucanier b = new Boucanier();
-        b.deplacement((CaseAccessible) matrice[10][10]);*//*
-
-
-        // Create the Scene
-        Scene scene = new Scene(root);
-        // Add the Scene to the Stage
-        stage.setScene(scene);
-        // Set the Title of the Stage
-        stage.setTitle("LosPiratosDelTresore");
-        // Display the Stage
-        stage.show();
-    }*/
 }

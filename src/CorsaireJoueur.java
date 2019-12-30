@@ -39,7 +39,7 @@ public class CorsaireJoueur extends Corsaire {
         }else {return false;}
     }
 
-    public void Deplacement(MouseEvent event) {
+    public void deplacement(MouseEvent event) {
         int xClick = 0;
         int yClick = 0;
         do {
@@ -49,7 +49,7 @@ public class CorsaireJoueur extends Corsaire {
 
         int caseX = (xClick *10 / 10)/20;
         int caseY = (yClick *10 / 10)/20;
-        CaseAccessible caseDeplacement = (CaseAccessible) Plateau.matrice[xClick][yClick];
+        CaseAccessible caseDeplacement = (CaseAccessible) Plateau.matrice[caseX][caseY];
         //CaseAccessible caseActuelle = (CaseAccessible) Plateau.matrice[postion.getX()][postion.getY()];
 
         postion = caseDeplacement;

@@ -13,7 +13,7 @@ public class Controller extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        int n = 10;
+        int n = 15;
         int canvasWidthHeight = n*20;
         Plateau plateauPartie  = new Plateau(n);
 
@@ -35,10 +35,11 @@ public class Controller extends Application {
 
         plateauPartie.fillMatrice();
         //Boucanier b = (Boucanier) plateauPartie.addPersonage();
-        Flibustier f = (Flibustier) plateauPartie.addPersonage();
+        CorsaireJoueur cj = (CorsaireJoueur) plateauPartie.addPersonage();
         plateauPartie.displayMatrice(gc);
         canvas.setOnMouseClicked( e ->{
-            f.deplacement(2);
+            plateauPartie.deplacement();
+            cj.deplacement(e);
             gc.clearRect(0,0,canvasWidthHeight,canvasWidthHeight);
             plateauPartie.displayMatrice(gc);
         });
