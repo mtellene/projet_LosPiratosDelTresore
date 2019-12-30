@@ -24,7 +24,7 @@ public class Plateau {
                     CaseAccessible c = (CaseAccessible) matrice[i][j];
                     if (c.getType().equals("foret")) {
                         gc.setFill(Color.GREEN);
-                        gc.fillRect(i * 20, j * 20, 20, 20);
+                        gc.fillRect(i * 40, j * 40, 40, 40);
                     }
 
                     if (!c.personages.isEmpty()) {
@@ -34,12 +34,12 @@ public class Plateau {
                                 String localUrl = file.toURI().toURL().toString();
                                 Image image = new Image(localUrl);
 
-                                gc.drawImage(image, c.getX() * 20, c.getY() * 20, 20, 20);
+                                gc.drawImage(image, c.getX() * 40, c.getY() * 40, 40, 40);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
                             if (CorsaireJoueur.class.equals(p.getClass())) {
-                                gc.strokeRect((p.postion.getX() * 20) - 20, (p.postion.getY() * 20) - 20, 60, 60);
+                                gc.strokeRect((p.postion.getX() * 40) - 40, (p.postion.getY() * 40) - 40, 120, 120);
                                 ArrayList<CaseAccessible> listCaseOutils = caseVisible(c);
                                 for (CaseAccessible caseA : listCaseOutils) {
                                     if (caseA.outil != null) {
@@ -48,7 +48,7 @@ public class Plateau {
                                             String localUrl = file2.toURI().toURL().toString();
                                             Image image = new Image(localUrl);
 
-                                            gc.drawImage(image, caseA.getX() * 20 + 5, caseA.getY() * 20 + 5, 10, 10);
+                                            gc.drawImage(image, caseA.getX() * 40 + 10, caseA.getY() * 40 + 10, 20, 20);
                                         } catch (Exception e) {
                                             e.printStackTrace();
                                         }
@@ -74,7 +74,7 @@ public class Plateau {
 
                 } else {
                     gc.setFill(Color.BLUE);
-                    gc.fillRect(i * 20, j * 20, 20, 20);
+                    gc.fillRect(i * 40, j * 40, 40, 40);
                 }
             }
         }
