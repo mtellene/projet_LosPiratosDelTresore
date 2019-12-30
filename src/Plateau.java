@@ -40,11 +40,27 @@ public class Plateau {
                             }
                             if (CorsaireJoueur.class.equals(p.getClass())) {
                                 gc.strokeRect((p.postion.getX() * 20) - 20, (p.postion.getY() * 20) - 20, 60, 60);
+                                ArrayList<CaseAccessible> listCaseOutils = caseVisible(c);
+                                for (CaseAccessible caseA : listCaseOutils) {
+                                    if (caseA.outil != null) {
+                                        File file2 = openOutilIcon(caseA.outil);
+                                        try {
+                                            String localUrl = file2.toURI().toURL().toString();
+                                            Image image = new Image(localUrl);
+
+                                            gc.drawImage(image, caseA.getX() * 20 + 5, caseA.getY() * 20 + 5, 10, 10);
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }
+
+
                             }
                         }
                     }
 
-                    if (c.outil != null){
+                    /*if (c.outil != null){
                         File file = openOutilIcon(c.outil);
                         try {
                             String localUrl = file.toURI().toURL().toString();
@@ -54,7 +70,7 @@ public class Plateau {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                    }
+                    }*/
 
                 } else {
                     gc.setFill(Color.BLUE);
@@ -125,7 +141,7 @@ public class Plateau {
         }
     }
 
-    private File openOutilIcon(Object outil){
+    private File openOutilIcon(Object outil) {
         String path = "Icons/";
         if (Armure.class.equals(outil.getClass())) {
             return new File(path + "armure.png");
@@ -139,7 +155,6 @@ public class Plateau {
             return null;
         }
     }
-
 
 
     public Personnage addPersonage() {
@@ -205,41 +220,86 @@ public class Plateau {
         for (int i = 0; i < 2; i++) {
             CaseAccessible caseA;
             Outil m = new Machette();
-            do{
+            do {
                 index = random.nextInt(caseAccessibles.size());
                 caseA = caseAccessibles.get(index);
-            }while(caseA.getType().equals("foret") || caseA.outil != null);
+            } while (caseA.getType().equals("foret") || caseA.outil != null);
             caseA.setOutil(m);
         }
 
         for (int i = 0; i < 2; i++) {
             Outil p = new Pelle();
             CaseAccessible caseA;
-            do{
+            do {
                 index = random.nextInt(caseAccessibles.size());
                 caseA = caseAccessibles.get(index);
-            }while (caseA.outil != null);
+            } while (caseA.outil != null);
             caseA.setOutil(p);
         }
 
         for (int i = 0; i < 2; i++) {
             Outil mou = new Mousquet();
             CaseAccessible caseA;
-            do{
+            do {
                 index = random.nextInt(caseAccessibles.size());
                 caseA = caseAccessibles.get(index);
-            }while (caseA.outil != null);
+            } while (caseA.outil != null);
             caseA.setOutil(mou);
         }
 
         for (int i = 0; i < 2; i++) {
             Outil a = new Armure();
             CaseAccessible caseA;
-            do{
+            do {
                 index = random.nextInt(caseAccessibles.size());
                 caseA = caseAccessibles.get(index);
-            }while (caseA.outil != null);
+            } while (caseA.outil != null);
             caseA.setOutil(a);
         }
+    }
+
+    private boolean addListCaseVisibles(int x, int y) {
+        if (x < 0 || x > n - 1) {
+            return false;
+        }
+        if (y < 0 || y > n - 1) {
+            return false;
+        }
+        return !matrice[x][y].getType().equals("eau");
+    }
+
+    private ArrayList<CaseAccessible> caseVisible(CaseAccessible c) {
+        ArrayList<CaseAccessible> listCaseVisible = new ArrayList<>();
+        int x = c.getX();
+        int y = c.getY();
+
+        if (addListCaseVisibles(x+1,y)) {
+            listCaseVisible.add((CaseAccessible) matrice[x + 1][y]);
+        }
+        if (addListCaseVisibles(x-1,y)) {
+            listCaseVisible.add((CaseAccessible) matrice[x - 1][y]);
+        }
+        if (addListCaseVisibles(x,y+1)) {
+            listCaseVisible.add((CaseAccessible) matrice[x][y + 1]);
+        }
+        if (addListCaseVisibles(x,y-1)) {
+            listCaseVisible.add((CaseAccessible) matrice[x][y - 1]);
+        }
+        if (addListCaseVisibles(x+1,y+1)) {
+            listCaseVisible.add((CaseAccessible) matrice[x + 1][y + 1]);
+        }
+        if (addListCaseVisibles(x+1,y-1)) {
+            listCaseVisible.add((CaseAccessible) matrice[x + 1][y - 1]);
+        }
+        if (addListCaseVisibles(x-1,y-1)) {
+            listCaseVisible.add((CaseAccessible) matrice[x - 1][y - 1]);
+        }
+        if (addListCaseVisibles(x-1,y+1)) {
+            listCaseVisible.add((CaseAccessible) matrice[x - 1][y + 1]);
+        }
+        if (addListCaseVisibles(x,y)) {
+            listCaseVisible.add((CaseAccessible) matrice[x][y]);
+        }
+        return listCaseVisible;
     }
 }
