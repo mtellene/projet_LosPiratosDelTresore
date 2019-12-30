@@ -201,44 +201,45 @@ public class Plateau {
 
     private void addOutils() {
         Random random = new Random();
+        int index;
         for (int i = 0; i < 2; i++) {
-            int index;
-            index = random.nextInt(caseAccessibles.size());
+            CaseAccessible caseA;
             Outil m = new Machette();
-            CaseAccessible caseA = caseAccessibles.get(index);
-            if (caseA.outil == null){
-                caseA.setOutil(m);
-            }
+            do{
+                index = random.nextInt(caseAccessibles.size());
+                caseA = caseAccessibles.get(index);
+            }while(caseA.getType().equals("foret") || caseA.outil != null);
+            caseA.setOutil(m);
         }
 
         for (int i = 0; i < 2; i++) {
-            int index;
-            index = random.nextInt(caseAccessibles.size());
             Outil p = new Pelle();
-            CaseAccessible caseA = caseAccessibles.get(index);
-            if (caseA.outil == null){
-                caseA.setOutil(p);
-            }
+            CaseAccessible caseA;
+            do{
+                index = random.nextInt(caseAccessibles.size());
+                caseA = caseAccessibles.get(index);
+            }while (caseA.outil != null);
+            caseA.setOutil(p);
         }
 
         for (int i = 0; i < 2; i++) {
-            int index;
-            index = random.nextInt(caseAccessibles.size());
             Outil mou = new Mousquet();
-            CaseAccessible caseA = caseAccessibles.get(index);
-            if (caseA.outil == null){
-                caseA.setOutil(mou);
-            }
+            CaseAccessible caseA;
+            do{
+                index = random.nextInt(caseAccessibles.size());
+                caseA = caseAccessibles.get(index);
+            }while (caseA.outil != null);
+            caseA.setOutil(mou);
         }
 
         for (int i = 0; i < 2; i++) {
-            int index;
-            index = random.nextInt(caseAccessibles.size());
             Outil a = new Armure();
-            CaseAccessible caseA = caseAccessibles.get(index);
-            if (caseA.outil == null){
-                caseA.setOutil(a);
-            }
+            CaseAccessible caseA;
+            do{
+                index = random.nextInt(caseAccessibles.size());
+                caseA = caseAccessibles.get(index);
+            }while (caseA.outil != null);
+            caseA.setOutil(a);
         }
     }
 }
