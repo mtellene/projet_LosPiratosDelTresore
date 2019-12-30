@@ -49,7 +49,7 @@ public class Flibustier extends Pirate {
     @Override
     void deplacement() {
         boolean deplace = false;
-        Case caseProchaine;
+        Case caseProchaine = null;
         Random random = new Random();
         int x = postion.getX();
         int y = postion.getY();
@@ -59,25 +59,39 @@ public class Flibustier extends Pirate {
                 radomI = random.nextInt(2);
                 radomJ = random.nextInt(2);
             } while (radomI == 0 && radomJ == 0);
-            
-            randomType = random.nextInt(4);
-            switch (randomType){
-                case 0 :
-                    caseProchaine = Plateau.matrice[x + radomI][y + radomJ];
-                    break;
-                case 1:
-                    caseProchaine = Plateau.matrice[x + radomI][y - radomJ];
-                    break;
-                case 2:
-                    caseProchaine = Plateau.matrice[x - radomI][y + radomJ];
-                    break;
-                case 3:
-                    caseProchaine = Plateau.matrice[x - radomI][y - radomJ];
-                    break;
-                default:
-                    throw new IllegalStateException("Unexpected value: " + randomType);
-            }
-            
+
+            boolean caseExist = false ;
+            do{
+                randomType = random.nextInt(4);
+                switch (randomType){
+                    case 0 :
+                        if ( x + radomI < 15 && y + radomJ < 15){
+                            caseExist = true;
+                            caseProchaine = Plateau.matrice[x + radomI][y + radomJ];
+                        }
+                        break;
+                    case 1:
+                        if ( x + radomI < 15 && y - radomJ >= 0){
+                            caseExist = true;
+                            caseProchaine = Plateau.matrice[x + radomI][y - radomJ];
+                        }
+                        break;
+                    case 2:
+                        if ( x - radomI >= 0 && y + radomJ < 15){
+                            caseExist = true;
+                            caseProchaine = Plateau.matrice[x - radomI][y + radomJ];
+                        }
+                        break;
+                    case 3:
+                        if ( x - radomI >= 0 && y - radomJ >= 0){
+                            caseExist = true;
+                            caseProchaine = Plateau.matrice[x - radomI][y - radomJ];
+                        }
+                        break;
+                    default:
+                        throw new IllegalStateException("Unexpected value: " + randomType);
+                }
+            }while(!caseExist);
 
             if (!caseProchaine.getType().equals("eau")) {
                 CaseAccessible caseDeplacement = (CaseAccessible) caseProchaine;

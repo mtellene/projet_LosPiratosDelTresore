@@ -111,6 +111,7 @@ public class Plateau extends Application {
 
     public Personnage addPersonage(){
         Flibustier f = null;
+        Boucanier b = null;
         for (int i = 1; i < 2 ; i++){
             int index;
             Random random = new Random();
@@ -122,7 +123,7 @@ public class Plateau extends Application {
             int index;
             Random random = new Random();
             index = random.nextInt(caseAccessibles.size());
-            Boucanier b = new Boucanier(caseAccessibles.get(index));
+            b = new Boucanier(caseAccessibles.get(index));
             caseAccessibles.get(index).personages.add(b);
         }
 
@@ -161,6 +162,7 @@ public class Plateau extends Application {
 
 
         fillMatrice();
+        //Boucanier b = (Boucanier) addPersonage();
         Flibustier f = (Flibustier) addPersonage();
         displayMatrice(gc);
         canvas.setOnMouseClicked( e ->{
