@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Corsaire extends Personnage {
 
     //variables
@@ -56,7 +58,7 @@ public class Corsaire extends Personnage {
 
 
     @Override
-    void deplacement() {
-
+    public void deplacement(int nombreDeCase) {
+        super.deplacement(nombreDeCase);
     }
 }

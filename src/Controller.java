@@ -38,7 +38,7 @@ public class Controller extends Application {
         Flibustier f = (Flibustier) plateauPartie.addPersonage();
         plateauPartie.displayMatrice(gc);
         canvas.setOnMouseClicked( e ->{
-            f.deplacement();
+            f.deplacement(2);
             gc.clearRect(0,0,canvasWidthHeight,canvasWidthHeight);
             plateauPartie.displayMatrice(gc);
         });
