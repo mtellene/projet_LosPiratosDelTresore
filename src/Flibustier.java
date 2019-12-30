@@ -65,19 +65,19 @@ public class Flibustier extends Pirate {
                 randomType = random.nextInt(4);
                 switch (randomType){
                     case 0 :
-                        if ( x + radomI < 15 && y + radomJ < 15){
+                        if ( x + radomI < Plateau.n && y + radomJ < Plateau.n){
                             caseExist = true;
                             caseProchaine = Plateau.matrice[x + radomI][y + radomJ];
                         }
                         break;
                     case 1:
-                        if ( x + radomI < 15 && y - radomJ >= 0){
+                        if ( x + radomI < Plateau.n && y - radomJ >= 0){
                             caseExist = true;
                             caseProchaine = Plateau.matrice[x + radomI][y - radomJ];
                         }
                         break;
                     case 2:
-                        if ( x - radomI >= 0 && y + radomJ < 15){
+                        if ( x - radomI >= 0 && y + radomJ < Plateau.n){
                             caseExist = true;
                             caseProchaine = Plateau.matrice[x - radomI][y + radomJ];
                         }

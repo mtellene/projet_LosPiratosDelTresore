@@ -11,14 +11,20 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Plateau extends Application {
-    public static Case[][] matrice = new Case[15][15];
+public class Plateau {
+    public static int n;
+    public static Case[][] matrice;
     public static ArrayList<CaseAccessible> caseAccessibles = new ArrayList<CaseAccessible>();
+
+    public Plateau(int n){
+        Plateau.n = n;
+        matrice = new Case[n][n];
+    }
 
     // display les elements sable , eau , foret
     public void displayMatrice(GraphicsContext gc) {
-        for (int i = 0; i < 15; i++) {
-            for (int j = 0; j < 15; j++) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
                 if (!matrice[i][j].getType().equals("eau")){
                     CaseAccessible c = (CaseAccessible) matrice[i][j];
                     if (matrice[i][j].getType().equals("foret")) {
@@ -62,8 +68,8 @@ public class Plateau extends Application {
     public void fillMatrice() {
         setEau();
         setForet();
-        for (int i = 0; i < 15; i++) {
-            for (int j = 0; j < 15; j++) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
                 if (matrice[i][j] == null){
                     matrice[i][j] = new Sable(i, j);
                     caseAccessibles.add((CaseAccessible) matrice[i][j]);
@@ -74,24 +80,30 @@ public class Plateau extends Application {
 
     public void setEau() {
         int radomI, radomJ;
-        for (int i = 0; i < 11; i++) {
-            Random random = new Random();
-            radomI = random.nextInt(15);
-            radomJ = random.nextInt(15);
+        int fivePercent = ((n*n) * 5) / 100;
+        Random random = new Random();
+        for (int i = 0; i < fivePercent; i++) {
+            do {
+                radomI = random.nextInt(n);
+                radomJ = random.nextInt(n);
+            } while (matrice[radomI][radomJ] != null);
             matrice[radomI][radomJ] = new Eau(radomI, radomJ);
+            System.out.println("eau :" + radomI +" "+ radomJ );
         }
     }
 
     public void setForet(){
         int radomI, radomJ;
-        for (int i = 0; i < 11; i++) {
-            Random random = new Random();
+        int fivePercent = ((n*n) * 5) / 100;
+        Random random = new Random();
+        for (int i = 0; i < fivePercent; i++) {
             do {
-                radomI = random.nextInt(15);
-                radomJ = random.nextInt(15);
+                radomI = random.nextInt(n);
+                radomJ = random.nextInt(n);
             } while (matrice[radomI][radomJ] != null);
             matrice[radomI][radomJ] = new Foret(radomI, radomJ);
             caseAccessibles.add((CaseAccessible) matrice[radomI][radomJ]);
+            System.out.println("Foret :" + radomI +" "+ radomJ );
         }
     }
 
@@ -140,18 +152,20 @@ public class Plateau extends Application {
         return f;
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         Application.launch(args);
     }
 
     @Override
     public void start(Stage stage) throws Exception {
+        int n = 10;
+        int canvasWidthHeight = n*20;
         // Create the Canvas
-        Canvas canvas = new Canvas(300, 300);
+        Canvas canvas = new Canvas(canvasWidthHeight, canvasWidthHeight);
         // Set the width of the Canvas
-        canvas.setWidth(300);
+        canvas.setWidth(canvasWidthHeight);
         // Set the height of the Canvas
-        canvas.setHeight(300);
+        canvas.setHeight(canvasWidthHeight);
         // Get the graphics context of the canvas
         GraphicsContext gc = canvas.getGraphicsContext2D();
         // Create the Pane
@@ -167,14 +181,14 @@ public class Plateau extends Application {
         displayMatrice(gc);
         canvas.setOnMouseClicked( e ->{
            f.deplacement();
-           gc.clearRect(0,0,300,300);
+           gc.clearRect(0,0,canvasWidthHeight,canvasWidthHeight);
            displayMatrice(gc);
         });
 
-        /*Flibustier f = new Flibustier();
+        *//*Flibustier f = new Flibustier();
         f.deplacement((CaseAccessible) matrice[10][10]);
         Boucanier b = new Boucanier();
-        b.deplacement((CaseAccessible) matrice[10][10]);*/
+        b.deplacement((CaseAccessible) matrice[10][10]);*//*
 
 
         // Create the Scene
@@ -185,5 +199,5 @@ public class Plateau extends Application {
         stage.setTitle("LosPiratosDelTresore");
         // Display the Stage
         stage.show();
-    }
+    }*/
 }
