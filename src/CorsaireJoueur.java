@@ -62,8 +62,5 @@ public class CorsaireJoueur extends Corsaire {
         }else{
             System.out.println("Veuillez reclicker");
         }
-
-
-
     }
 }
