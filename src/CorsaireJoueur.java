@@ -6,6 +6,8 @@ public class CorsaireJoueur extends Corsaire {
     }
 
     public boolean verifClick(int x, int y) {
+        //provisoire
+        boolean machette = false;
         int xPosition = postion.getX() * 20;
         int yPosition = postion.getY() * 20;
 
@@ -17,12 +19,17 @@ public class CorsaireJoueur extends Corsaire {
         boolean xOk = false;
         boolean yOk = false;
         boolean center = false;
-        boolean caseOk = false;
+        boolean caseOk = true;
         // If the case is accessible
         int caseX = (x *10 / 10)/20;
         int caseY = (y *10 / 10)/20;
-        if (Plateau.matrice[caseX][caseY].getType().equals("sable")){
-            caseOk = true;
+        if (Plateau.matrice[caseX][caseY].getType().equals("eau")){
+            System.out.println("eau inaccessible !");
+            caseOk = false;
+        }
+        if (Plateau.matrice[caseX][caseY].getType().equals("foret")){
+            System.out.println("Foret inaccessible : trouvez une machette");
+            caseOk = false;
         }
         //position of the Click
         if (x < xPosition + 20 && x > xPosition && y < yPosition + 20  && y > yPosition){
@@ -40,19 +47,22 @@ public class CorsaireJoueur extends Corsaire {
     }
 
     public void deplacement(MouseEvent event) {
-        int xClick = 0;
-        int yClick = 0;
-        do {
-            xClick = (int) event.getX();
-            yClick = (int) event.getY();
-        } while (!verifClick(xClick,yClick));
+        int xClick = (int) event.getX();
+        int yClick = (int) event.getY();
+        if (verifClick(xClick,yClick)){
+            int caseX = (xClick *10 / 10)/20;
+            int caseY = (yClick *10 / 10)/20;
+            CaseAccessible caseDeplacement = (CaseAccessible) Plateau.matrice[caseX][caseY];
+            CaseAccessible caseActuelle = (CaseAccessible) Plateau.matrice[postion.getX()][postion.getY()];
 
-        int caseX = (xClick *10 / 10)/20;
-        int caseY = (yClick *10 / 10)/20;
-        CaseAccessible caseDeplacement = (CaseAccessible) Plateau.matrice[caseX][caseY];
-        //CaseAccessible caseActuelle = (CaseAccessible) Plateau.matrice[postion.getX()][postion.getY()];
+            caseDeplacement.personages.add(this);
+            caseActuelle.personages.remove(this);
+            postion = caseDeplacement;
+            Plateau.deplacement();
+        }else{
+            System.out.println("Veuillez reclicker");
+        }
 
-        postion = caseDeplacement;
 
 
     }

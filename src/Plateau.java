@@ -16,7 +16,7 @@ public class Plateau {
         matrice = new Case[n][n];
     }
 
-    // display les elements sable , eau , foret
+    // display les elements sable , eau , foret et les personnages
     public void displayMatrice(GraphicsContext gc) {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
@@ -37,6 +37,9 @@ public class Plateau {
                             }catch (Exception e){
                                 e.printStackTrace();
                             }
+                            if (CorsaireJoueur.class.equals(p.getClass())) {
+                                //gc.strokeRect();
+                            }
                         }
                     }
 
@@ -44,16 +47,6 @@ public class Plateau {
                     gc.setFill(Color.BLUE);
                     gc.fillRect(i * 20, j * 20, 20, 20);
                 }
-
-                /*// les cases
-                if (matrice[i][j].getType().equals("eau")) {
-                    gc.setFill(Color.BLUE);
-                    gc.fillRect(j * 20, i * 20, 20, 20);
-                } else if (matrice[i][j].getType().equals("foret")) {
-                    gc.setFill(Color.GREEN);
-                    gc.fillRect(j * 20, i * 20, 20, 20);
-                }*/
-
             }
         }
     }
@@ -156,7 +149,7 @@ public class Plateau {
         return cj;
     }
 
-    public void deplacement(){
+    public static void deplacement(){
         for (CaseAccessible caseA : caseAccessibles){
             if(caseA.personages.size() > 0 ){
                 for(Personnage p : caseA.personages){

@@ -53,19 +53,17 @@ public  class Personnage {
                 }
             }while(!caseExist);
 
+
             if (!caseProchaine.getType().equals("eau")) {
                 CaseAccessible caseDeplacement = (CaseAccessible) caseProchaine;
-                CaseAccessible caseActuelle = (CaseAccessible) Plateau.matrice[x][y];
-
-                int nbDePersonnages = caseDeplacement.personages.size();
-                if (nbDePersonnages < 2) {
+                if (caseDeplacement.personages.size() < 2 ){
+                    CaseAccessible caseActuelle = (CaseAccessible) Plateau.matrice[x][y];
                     caseDeplacement.personages.add(this);
                     caseActuelle.personages.remove(this);
                     deplace = true;
+
+                    postion = caseDeplacement;
                 }
-
-                postion = caseDeplacement;
-
             }
         }
     }
