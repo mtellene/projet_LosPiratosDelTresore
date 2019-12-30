@@ -58,8 +58,8 @@ public  class Personnage {
                 CaseAccessible caseDeplacement = (CaseAccessible) caseProchaine;
                 if (caseDeplacement.personages.size() < 2 ){
                     CaseAccessible caseActuelle = (CaseAccessible) Plateau.matrice[x][y];
-                    caseDeplacement.personages.add(this);
                     caseActuelle.personages.remove(this);
+                    caseDeplacement.personages.add(this);
                     deplace = true;
 
                     postion = caseDeplacement;

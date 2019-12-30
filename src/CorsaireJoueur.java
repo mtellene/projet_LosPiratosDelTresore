@@ -55,8 +55,8 @@ public class CorsaireJoueur extends Corsaire {
             CaseAccessible caseDeplacement = (CaseAccessible) Plateau.matrice[caseX][caseY];
             CaseAccessible caseActuelle = (CaseAccessible) Plateau.matrice[postion.getX()][postion.getY()];
 
-            caseDeplacement.personages.add(this);
             caseActuelle.personages.remove(this);
+            caseDeplacement.personages.add(this);
             postion = caseDeplacement;
             Plateau.deplacement();
         }else{

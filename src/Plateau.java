@@ -38,7 +38,7 @@ public class Plateau {
                                 e.printStackTrace();
                             }
                             if (CorsaireJoueur.class.equals(p.getClass())) {
-                                //gc.strokeRect();
+                                gc.strokeRect((p.postion.getX()*20)-20,(p.postion.getY()*20)-20,60,60);
                             }
                         }
                     }
