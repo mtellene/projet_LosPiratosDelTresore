@@ -30,6 +30,10 @@ public class Plateau {
                         gc.setFill(Color.rgb(120,60,30));
                         gc.fillOval(c.getX() * 40+10, c.getY() *40+10, 20,20);
                     }
+                    if(c.aTresor){
+                        gc.setFill(Color.RED);
+                        gc.fillOval(c.getX() * 40+10, c.getY() *40+10, 20,20);
+                    }
 
                     if (!c.personages.isEmpty()) {
                         for (Personnage p : c.personages) {
