@@ -1,7 +1,7 @@
 import java.util.Random;
 
 public  class Personnage {
-    protected CaseAccessible postion;
+    public CaseAccessible postion;
 
     public Personnage(CaseAccessible c){
         postion = c;

@@ -1,6 +1,7 @@
 import javafx.scene.input.MouseEvent;
 
 public class CorsaireJoueur extends Corsaire {
+
     public CorsaireJoueur(CaseAccessible c) {
         super(c);
     }
@@ -47,6 +48,8 @@ public class CorsaireJoueur extends Corsaire {
     }
 
     public void deplacement(MouseEvent event) {
+        ramasse();
+        creuser();
         int xClick = (int) event.getX();
         int yClick = (int) event.getY();
         if (verifClick(xClick,yClick)){
@@ -62,5 +65,9 @@ public class CorsaireJoueur extends Corsaire {
         }else{
             System.out.println("Veuillez reclicker");
         }
+    }
+
+    public void ramaser(){
+
     }
 }

@@ -37,6 +37,8 @@ public class Controller extends Application {
         //Boucanier b = (Boucanier) plateauPartie.addPersonage();
         CorsaireJoueur cj = (CorsaireJoueur) plateauPartie.addPersonage();
         plateauPartie.displayMatrice(gc);
+        cj.ramasse();
+        cj.creuser();
         canvas.setOnMouseClicked( e ->{
             cj.deplacement(e);
             gc.clearRect(0,0,canvasWidthHeight,canvasWidthHeight);

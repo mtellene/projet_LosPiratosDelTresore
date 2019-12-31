@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 public class CaseAccessible extends Case {
+    public boolean creuse = false;
     public boolean aTresor = false;
     public Outil outil = null;
     public ArrayList<Personnage> personages = new ArrayList<Personnage>();

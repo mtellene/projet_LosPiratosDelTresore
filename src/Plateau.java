@@ -26,6 +26,10 @@ public class Plateau {
                         gc.setFill(Color.GREEN);
                         gc.fillRect(i * 40, j * 40, 40, 40);
                     }
+                    if (c.creuse){
+                        gc.setFill(Color.rgb(120,60,30));
+                        gc.fillOval(c.getX() * 40+10, c.getY() *40+10, 20,20);
+                    }
 
                     if (!c.personages.isEmpty()) {
                         for (Personnage p : c.personages) {
@@ -60,17 +64,6 @@ public class Plateau {
                         }
                     }
 
-                    /*if (c.outil != null){
-                        File file = openOutilIcon(c.outil);
-                        try {
-                            String localUrl = file.toURI().toURL().toString();
-                            Image image = new Image(localUrl);
-
-                            gc.drawImage(image, c.getX() * 20+5, c.getY() * 20+5, 10, 10);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }*/
 
                 } else {
                     gc.setFill(Color.BLUE);

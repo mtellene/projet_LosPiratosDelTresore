@@ -3,43 +3,44 @@ import java.util.Random;
 public class Corsaire extends Personnage {
 
     //variables
-    boolean pelle = false;
-    boolean machette = false;
-    boolean mousquet = false;
-    boolean armure = false;
+    public Pelle pelle;
+    public Machette machette;
+    public Armure armure;
+    public Mousquet mousquet;
 
-    String nom;
-    int pWin;
-    //case mais jsp comment mettre
+    public int pWin;
 
     //methodes
     public Corsaire(CaseAccessible c){
         super(c);
     }
 
-    public void Ramassage(){
-        /*
-        if pelle == false && case == pelle {ramasser pelle; }
-        elseif mousquet == false && case == mousquet { ramasser mousquet; }
-        elseif machette == false && case == machette { ramasser machette; }
-        elseif armure == false && case == armure {ramasser armure; }
-         */
+    public void ramasse(){
+        Outil outil = this.postion.outil;
+        if (outil != null){
+            if (Pelle.class.equals(outil.getClass()) && (this.pelle == null )) {
+                this.pelle = (Pelle) outil;
+                this.postion.outil = null;
+            }
+            else if (Machette.class.equals(outil.getClass()) && (this.machette == null )) {
+                this.machette = (Machette) outil;
+                this.postion.outil = null;
+            }
+            else if (Armure.class.equals(outil.getClass()) && (this.armure == null )){
+                this.armure = (Armure) outil;
+                this.postion.outil = null;
+            }
+            else if (Mousquet.class.equals(outil.getClass()) && (this.mousquet == null )) {
+                this.mousquet = (Mousquet) outil;
+                this.postion.outil = null;
+            }
+        }
     }
 
-    public void Deplacement(){
-        /*
-        if case == eau
-            System.out.println("Impossible d'aller sur cette case");
-            Deplacement();
-        elseif case == foret
-            if machette == false
-                System.out.println("Impossible d'aller sur cette case");
-                Deplacement();
-            else
-                aller sur la case;
-        else
-            aller sur la case;
-         */
+    public void creuser(){
+        if (this.pelle != null){
+            this.postion.creuse = true;
+        }
     }
 
     public int PourcentageVictoire(){
@@ -59,6 +60,8 @@ public class Corsaire extends Personnage {
 
     @Override
     public void deplacement(int nombreDeCase) {
+        ramasse();
+        creuser();
         super.deplacement(nombreDeCase);
     }
 }
