@@ -7,6 +7,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.util.ArrayList;
+import java.util.ListIterator;
 import java.util.Random;
 
 public class Pirate extends Personnage {
@@ -17,6 +19,7 @@ public class Pirate extends Personnage {
 
     @Override
     public void deplacement(int nombreDeCase) {
+        attaque();
         super.deplacement(nombreDeCase);
         attaque();
     }
@@ -48,33 +51,18 @@ public class Pirate extends Personnage {
                     if (pWinAttaquant > cible.pWin){
                         position.personages.remove(cible);
                         Controller.canvas.setOnMouseClicked(null);
+                        //PopUp
                         Stage popupwindow=new Stage();
-
                         popupwindow.initModality(Modality.APPLICATION_MODAL);
                         popupwindow.initStyle(StageStyle.UNDECORATED);
-                        //popupwindow.setTitle("This is a pop up window");
-
                         String message = "Vous Avez Perdu ! Vous etes Mort !";
-
                         Label label1= new Label(message);
-
-
                         Button button1= new Button("Close");
-
-
                         button1.setOnAction(e -> popupwindow.close());
-
-
-
                         VBox layout= new VBox(10);
-
-
                         layout.getChildren().addAll(label1, button1);
-
                         layout.setAlignment(Pos.CENTER);
-
                         Scene scene1= new Scene(layout, 300, 100);
-
                         popupwindow.setScene(scene1);
                         popupwindow.show();
                     }else{
@@ -83,6 +71,91 @@ public class Pirate extends Personnage {
                     }
                 }
             }
+        }else{
+            // attaque flibustier
+            Corsaire cible = null;
+            int x = position.getX();
+            int y = position.getY();
+            ArrayList<CaseAccessible> caseAuTour = new ArrayList<>();
+            if (Plateau.addListCaseVisibles(x , y)) {
+                caseAuTour.add((CaseAccessible) Plateau.matrice[x][y]);
+            }
+            if (Plateau.addListCaseVisibles(x + 1, y)) {
+                caseAuTour.add((CaseAccessible) Plateau.matrice[x + 1][y]);
+            }
+            if (Plateau.addListCaseVisibles(x - 1, y)) {
+                caseAuTour.add((CaseAccessible) Plateau.matrice[x - 1][y]);
+            }
+            if (Plateau.addListCaseVisibles(x, y + 1)) {
+                caseAuTour.add((CaseAccessible) Plateau.matrice[x][y + 1]);
+            }
+            if (Plateau.addListCaseVisibles(x, y - 1)) {
+                caseAuTour.add((CaseAccessible) Plateau.matrice[x][y - 1]);
+            }
+            if (Plateau.addListCaseVisibles(x + 1, y + 1)) {
+                caseAuTour.add((CaseAccessible) Plateau.matrice[x + 1][y + 1]);
+            }
+            if (Plateau.addListCaseVisibles(x + 1, y - 1)) {
+                caseAuTour.add((CaseAccessible) Plateau.matrice[x + 1][y - 1]);
+            }
+            if (Plateau.addListCaseVisibles(x - 1, y - 1)) {
+                caseAuTour.add((CaseAccessible) Plateau.matrice[x - 1][y - 1]);
+            }
+            if (Plateau.addListCaseVisibles(x - 1, y + 1)) {
+                caseAuTour.add((CaseAccessible) Plateau.matrice[x - 1][y + 1]);
+            }
+            
+            ListIterator<CaseAccessible> it = caseAuTour.listIterator();
+            boolean cibleOrfinish = false;
+            while ( !cibleOrfinish){
+                while (it.hasNext() && !cibleOrfinish){
+                    CaseAccessible caseA = it.next();
+                    for (Personnage p : caseA.personages){
+                        if (p instanceof Corsaire){
+                            cible = (Corsaire) p;
+                            cibleOrfinish = true;
+                            break;
+                        }
+                    }
+                }
+                cibleOrfinish = true;
+            }
+            if (cible != null){
+                int pWinAttaquant;
+                Random random = new Random();
+                pWinAttaquant = random.nextInt(100);
+                if (cible instanceof CorsaireNonJoueur){
+                    if (pWinAttaquant > cible.pWin){
+                        position.personages.remove(cible);
+                        System.out.println("un Corsaire est mort");
+                    }else{
+                        position.personages.remove(this);
+                        System.out.println("un Flibustier est mort");
+                    }
+                }else{
+                    if (pWinAttaquant > cible.pWin){
+                        position.personages.remove(cible);
+                        Controller.canvas.setOnMouseClicked(null);
+                        //PopUp
+                        Stage popupwindow=new Stage();
+                        popupwindow.initModality(Modality.APPLICATION_MODAL);
+                        popupwindow.initStyle(StageStyle.UNDECORATED);
+                        String message = "Vous Avez Perdu ! Vous etes Mort !";
+                        Label label1= new Label(message);
+                        Button button1= new Button("Close");
+                        button1.setOnAction(e -> popupwindow.close());
+                        VBox layout= new VBox(10);
+                        layout.getChildren().addAll(label1, button1);
+                        layout.setAlignment(Pos.CENTER);
+                        Scene scene1= new Scene(layout, 300, 100);
+                        popupwindow.setScene(scene1);
+                        popupwindow.show();
+                    } else{
+                        position.personages.remove(this);
+                        System.out.println("un Flibustier est mort");
+                    }
+                }
+            }
         }
-    };
+    }
 }

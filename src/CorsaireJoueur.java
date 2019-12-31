@@ -62,6 +62,8 @@ public class CorsaireJoueur extends Corsaire {
 
             caseActuelle.personages.remove(this);
             caseDeplacement.personages.add(this);
+            ramasse();
+            creuser();
             position = caseDeplacement;
             Plateau.deplacement();
         }else{

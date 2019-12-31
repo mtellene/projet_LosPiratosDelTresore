@@ -200,20 +200,32 @@ public class Plateau {
     }
 
     public static void deplacement() {
+        ArrayList<Pirate> pirates = new ArrayList<>();
+        ArrayList<CorsaireNonJoueur> corsaireNonJoueurs = new ArrayList<>();
         for (CaseAccessible caseA : caseAccessibles) {
             if (caseA.personages.size() > 0) {
                 for (Personnage p : caseA.personages) {
                     if (!CorsaireJoueur.class.equals(p.getClass())) {
-                        if (Boucanier.class.equals(p.getClass())) {
-                            p.deplacement(2);
-                        } else {
-                            p.deplacement(1);
+                        if (p instanceof Pirate){
+                            pirates.add((Pirate) p);
+                        }else{
+                            corsaireNonJoueurs.add((CorsaireNonJoueur) p);
                         }
                     }
                     if (caseA.personages.size() == 0) {
                         break;
                     }
                 }
+            }
+        }
+        for (CorsaireNonJoueur c : corsaireNonJoueurs){
+            c.deplacement(1);
+        }
+        for (Pirate p : pirates){
+            if (p instanceof Boucanier) {
+                p.deplacement(2);
+            } else {
+                p.deplacement(1);
             }
         }
     }
@@ -270,7 +282,7 @@ public class Plateau {
         }
     }
 
-    private boolean addListCaseVisibles(int x, int y) {
+    public static boolean addListCaseVisibles(int x, int y) {
         if (x < 0 || x > n - 1) {
             return false;
         }
