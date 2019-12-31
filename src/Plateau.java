@@ -198,7 +198,7 @@ public class Plateau {
             if (caseA.personages.size() > 0) {
                 for (Personnage p : caseA.personages) {
                     if (!CorsaireJoueur.class.equals(p.getClass())) {
-                        if (Flibustier.class.equals(p.getClass())) {
+                        if (Boucanier.class.equals(p.getClass())) {
                             p.deplacement(2);
                         } else {
                             p.deplacement(1);
@@ -213,9 +213,17 @@ public class Plateau {
     }
 
     private void addOutils() {
+        int nbCorsaire = 0;
+        for (CaseAccessible caseA : caseAccessibles){
+            for(Personnage p : caseA.personages){
+                if (Corsaire.class.equals(p.getClass())){
+                    nbCorsaire += 1;
+                }
+            }
+        }
         Random random = new Random();
         int index;
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < nbCorsaire*2; i++) {
             CaseAccessible caseA;
             Outil m = new Machette();
             do {
@@ -225,7 +233,7 @@ public class Plateau {
             caseA.setOutil(m);
         }
 
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < nbCorsaire; i++) {
             Outil p = new Pelle();
             CaseAccessible caseA;
             do {
@@ -235,7 +243,7 @@ public class Plateau {
             caseA.setOutil(p);
         }
 
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < nbCorsaire*2; i++) {
             Outil mou = new Mousquet();
             CaseAccessible caseA;
             do {
@@ -245,7 +253,7 @@ public class Plateau {
             caseA.setOutil(mou);
         }
 
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < nbCorsaire*2; i++) {
             Outil a = new Armure();
             CaseAccessible caseA;
             do {
