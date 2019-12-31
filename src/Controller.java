@@ -16,7 +16,7 @@ public class Controller extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        int n = 10;
+        int n = 9;
         int canvasWidthHeight = n*40;
         Plateau plateauPartie  = new Plateau(n);
 

@@ -11,10 +11,10 @@ import javafx.stage.StageStyle;
 public class Corsaire extends Personnage {
 
     //variables
-    public Pelle pelle;
-    public Machette machette;
-    public Armure armure;
-    public Mousquet mousquet;
+    public Pelle pelle = null;
+    public Machette machette = null;
+    public Armure armure = null;
+    public Mousquet mousquet = null;
 
     public int pWin = 0;
 
@@ -43,6 +43,7 @@ public class Corsaire extends Personnage {
                 this.postion.outil = null;
             }
         }
+        setPourcentageVictoire();
     }
 
     public void creuser(){
@@ -113,8 +114,9 @@ public class Corsaire extends Personnage {
 
     @Override
     public void deplacement(int nombreDeCase) {
+        super.deplacement(nombreDeCase);
         ramasse();
         creuser();
-        super.deplacement(nombreDeCase);
     }
+
 }

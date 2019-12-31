@@ -54,15 +54,43 @@ public  class Personnage {
             }while(!caseExist);
 
 
-            if (!caseProchaine.getType().equals("eau")) {
-                CaseAccessible caseDeplacement = (CaseAccessible) caseProchaine;
-                if (caseDeplacement.personages.size() < 2 ){
-                    CaseAccessible caseActuelle = (CaseAccessible) Plateau.matrice[x][y];
-                    caseActuelle.personages.remove(this);
-                    caseDeplacement.personages.add(this);
-                    deplace = true;
+            if (this instanceof Corsaire){
+                if (!caseProchaine.getType().equals("eau")) {
+                    CaseAccessible caseDeplacement = (CaseAccessible) caseProchaine;
+                    if (caseProchaine.getType().equals("foret")){
+                        if (((Corsaire) this).machette != null){
 
-                    postion = caseDeplacement;
+                            if (caseDeplacement.personages.size() < 2) {
+                                CaseAccessible caseActuelle = (CaseAccessible) Plateau.matrice[x][y];
+                                caseActuelle.personages.remove(this);
+                                caseDeplacement.personages.add(this);
+                                deplace = true;
+
+                                postion = caseDeplacement;
+                            }
+                        }
+                    }else{
+                        if (caseDeplacement.personages.size() < 2) {
+                            CaseAccessible caseActuelle = (CaseAccessible) Plateau.matrice[x][y];
+                            caseActuelle.personages.remove(this);
+                            caseDeplacement.personages.add(this);
+                            deplace = true;
+
+                            postion = caseDeplacement;
+                        }
+                    }
+                }
+            }else{
+                if (!caseProchaine.getType().equals("eau")) {
+                    CaseAccessible caseDeplacement = (CaseAccessible) caseProchaine;
+                    if (caseDeplacement.personages.size() < 2 ){
+                        CaseAccessible caseActuelle = (CaseAccessible) Plateau.matrice[x][y];
+                        caseActuelle.personages.remove(this);
+                        caseDeplacement.personages.add(this);
+                        deplace = true;
+
+                        postion = caseDeplacement;
+                    }
                 }
             }
         }
