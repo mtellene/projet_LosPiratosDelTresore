@@ -16,7 +16,7 @@ public class Corsaire extends Personnage {
     public Armure armure;
     public Mousquet mousquet;
 
-    public int pWin;
+    public int pWin = 0;
 
     //methodes
     public Corsaire(CaseAccessible c){
@@ -87,7 +87,17 @@ public class Corsaire extends Personnage {
         }
     }
 
-    public int PourcentageVictoire(){
+    public void setPourcentageVictoire(){
+        if(armure != null){
+            if(mousquet != null) { pWin = 100;}
+            else if (machette != null){ pWin = 40;}
+            else{ pWin = 10;}
+        }
+        else{
+            if(mousquet != null) { pWin = 90;}
+            else if (machette != null){ pWin = 40;}
+            else{ pWin = 0;}
+        }
         /*
         if armure == true
             if mousquet == true { int pWin = 100; }
@@ -98,7 +108,6 @@ public class Corsaire extends Personnage {
             elseif mousquet == false && machette == true { int pWin = 40; }
             else {int pWin = 0; }
          */
-        return pWin;
     }
 
 
