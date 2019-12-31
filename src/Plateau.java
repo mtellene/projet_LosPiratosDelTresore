@@ -47,7 +47,7 @@ public class Plateau {
                                 e.printStackTrace();
                             }
                             if (CorsaireJoueur.class.equals(p.getClass())) {
-                                gc.strokeRect((p.postion.getX() * 40) - 40, (p.postion.getY() * 40) - 40, 120, 120);
+                                gc.strokeRect((p.position.getX() * 40) - 40, (p.position.getY() * 40) - 40, 120, 120);
                                 ArrayList<CaseAccessible> listCaseOutils = caseVisible(c);
                                 for (CaseAccessible caseA : listCaseOutils) {
                                     if (caseA.outil != null) {

@@ -1,18 +1,18 @@
 import java.util.Random;
 
 public  class Personnage {
-    public CaseAccessible postion;
+    public CaseAccessible position;
 
     public Personnage(CaseAccessible c){
-        postion = c;
+        position = c;
     }
 
     public void deplacement(int nombreDeCase) {
         boolean deplace = false;
         Case caseProchaine = null;
         Random random = new Random();
-        int x = postion.getX();
-        int y = postion.getY();
+        int x = position.getX();
+        int y = position.getY();
         int radomI, radomJ , randomType;
         while (!deplace) {
             do {
@@ -66,7 +66,7 @@ public  class Personnage {
                                 caseDeplacement.personages.add(this);
                                 deplace = true;
 
-                                postion = caseDeplacement;
+                                position = caseDeplacement;
                             }
                         }
                     }else{
@@ -76,7 +76,7 @@ public  class Personnage {
                             caseDeplacement.personages.add(this);
                             deplace = true;
 
-                            postion = caseDeplacement;
+                            position = caseDeplacement;
                         }
                     }
                 }
@@ -89,7 +89,7 @@ public  class Personnage {
                         caseDeplacement.personages.add(this);
                         deplace = true;
 
-                        postion = caseDeplacement;
+                        position = caseDeplacement;
                     }
                 }
             }

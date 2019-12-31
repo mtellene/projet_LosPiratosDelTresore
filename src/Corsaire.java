@@ -24,23 +24,23 @@ public class Corsaire extends Personnage {
     }
 
     public void ramasse(){
-        Outil outil = this.postion.outil;
+        Outil outil = this.position.outil;
         if (outil != null){
             if (Pelle.class.equals(outil.getClass()) && (this.pelle == null )) {
                 this.pelle = (Pelle) outil;
-                this.postion.outil = null;
+                this.position.outil = null;
             }
             else if (Machette.class.equals(outil.getClass()) && (this.machette == null )) {
                 this.machette = (Machette) outil;
-                this.postion.outil = null;
+                this.position.outil = null;
             }
             else if (Armure.class.equals(outil.getClass()) && (this.armure == null )){
                 this.armure = (Armure) outil;
-                this.postion.outil = null;
+                this.position.outil = null;
             }
             else if (Mousquet.class.equals(outil.getClass()) && (this.mousquet == null )) {
                 this.mousquet = (Mousquet) outil;
-                this.postion.outil = null;
+                this.position.outil = null;
             }
         }
         setPourcentageVictoire();
@@ -48,8 +48,8 @@ public class Corsaire extends Personnage {
 
     public void creuser(){
         if (this.pelle != null){
-            this.postion.creuse = true;
-            if (this.postion.aTresor){
+            this.position.creuse = true;
+            if (this.position.aTresor){
                 Controller.canvas.setOnMouseClicked(null);
                 Stage popupwindow=new Stage();
 
@@ -99,16 +99,6 @@ public class Corsaire extends Personnage {
             else if (machette != null){ pWin = 40;}
             else{ pWin = 0;}
         }
-        /*
-        if armure == true
-            if mousquet == true { int pWin = 100; }
-            elseif mousquet == false && machette == true { int pWin = 40; }
-            else { int pWin = 10; }
-        else
-            if mousquet == true { int pWin = 90; } on prend le % du mousquet (le + haut)
-            elseif mousquet == false && machette == true { int pWin = 40; }
-            else {int pWin = 0; }
-         */
     }
 
 

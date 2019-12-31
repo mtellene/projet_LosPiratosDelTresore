@@ -9,8 +9,8 @@ public class CorsaireJoueur extends Corsaire {
     public boolean verifClick(int x, int y) {
         //provisoire
         //boolean machette = false;
-        int xPosition = postion.getX() * 40;
-        int yPosition = postion.getY() * 40;
+        int xPosition = position.getX() * 40;
+        int yPosition = position.getY() * 40;
 
         int rightLimitX = xPosition + 80;
         int leftLimitX = xPosition  - 40;
@@ -58,11 +58,11 @@ public class CorsaireJoueur extends Corsaire {
             int caseX = (xClick *10 / 10)/40;
             int caseY = (yClick *10 / 10)/40;
             CaseAccessible caseDeplacement = (CaseAccessible) Plateau.matrice[caseX][caseY];
-            CaseAccessible caseActuelle = (CaseAccessible) Plateau.matrice[postion.getX()][postion.getY()];
+            CaseAccessible caseActuelle = (CaseAccessible) Plateau.matrice[position.getX()][position.getY()];
 
             caseActuelle.personages.remove(this);
             caseDeplacement.personages.add(this);
-            postion = caseDeplacement;
+            position = caseDeplacement;
             Plateau.deplacement();
         }else{
             System.out.println("Veuillez reclicker");
