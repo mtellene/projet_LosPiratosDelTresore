@@ -8,7 +8,7 @@ public class CorsaireJoueur extends Corsaire {
 
     public boolean verifClick(int x, int y) {
         //provisoire
-        boolean machette = false;
+        //boolean machette = false;
         int xPosition = postion.getX() * 40;
         int yPosition = postion.getY() * 40;
 
@@ -29,8 +29,12 @@ public class CorsaireJoueur extends Corsaire {
             caseOk = false;
         }
         if (Plateau.matrice[caseX][caseY].getType().equals("foret")){
-            System.out.println("Foret inaccessible : trouvez une machette");
-            caseOk = false;
+            if (machette == null) {
+                System.out.println("Foret inaccessible : trouvez une machette");
+                caseOk = false;
+            }else{
+                caseOk = true;
+            }
         }
         //position of the Click
         if (x < xPosition + 40 && x > xPosition && y < yPosition + 40  && y > yPosition){
@@ -65,9 +69,5 @@ public class CorsaireJoueur extends Corsaire {
         }else{
             System.out.println("Veuillez reclicker");
         }
-    }
-
-    public void ramaser(){
-
     }
 }

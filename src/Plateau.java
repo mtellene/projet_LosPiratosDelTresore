@@ -87,6 +87,7 @@ public class Plateau {
             }
         }
         addOutils();
+        setTresor();
     }
 
     public void setEau() {
@@ -294,5 +295,12 @@ public class Plateau {
             listCaseVisible.add((CaseAccessible) matrice[x][y]);
         }
         return listCaseVisible;
+    }
+
+    public void setTresor(){
+        int index;
+        Random random = new Random();
+        index = random.nextInt(caseAccessibles.size());
+        caseAccessibles.get(index).setaTresor();
     }
 }

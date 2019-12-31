@@ -2,10 +2,16 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+
+import java.beans.EventHandler;
+
 public class Controller extends Application {
+
+    public static Canvas canvas;
 
     public static void main(String[] args) {
         Application.launch(args);
@@ -13,13 +19,13 @@ public class Controller extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        int n = 15;
+        int n = 10;
         int canvasWidthHeight = n*40;
         Plateau plateauPartie  = new Plateau(n);
 
 
         // Create the Canvas
-        Canvas canvas = new Canvas(canvasWidthHeight, canvasWidthHeight);
+        canvas = new Canvas(canvasWidthHeight, canvasWidthHeight);
         // Set the width of the Canvas
         canvas.setWidth(canvasWidthHeight);
         // Set the height of the Canvas
@@ -34,7 +40,6 @@ public class Controller extends Application {
 
 
         plateauPartie.fillMatrice();
-        //Boucanier b = (Boucanier) plateauPartie.addPersonage();
         CorsaireJoueur cj = (CorsaireJoueur) plateauPartie.addPersonage();
         plateauPartie.displayMatrice(gc);
         cj.ramasse();
@@ -44,13 +49,6 @@ public class Controller extends Application {
             gc.clearRect(0,0,canvasWidthHeight,canvasWidthHeight);
             plateauPartie.displayMatrice(gc);
         });
-
-
-
-        /*Flibustier f = new Flibustier();
-        f.deplacement((CaseAccessible) matrice[10][10]);
-        Boucanier b = new Boucanier();
-        b.deplacement((CaseAccessible) matrice[10][10]);*/
 
 
         // Create the Scene
