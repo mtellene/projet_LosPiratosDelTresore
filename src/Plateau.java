@@ -26,13 +26,13 @@ public class Plateau {
                         gc.setFill(Color.GREEN);
                         gc.fillRect(i * 40, j * 40, 40, 40);
                     }
-                    if (c.creuse){
-                        gc.setFill(Color.rgb(120,60,30));
-                        gc.fillOval(c.getX() * 40+10, c.getY() *40+10, 20,20);
+                    if (c.creuse) {
+                        gc.setFill(Color.rgb(120, 60, 30));
+                        gc.fillOval(c.getX() * 40 + 10, c.getY() * 40 + 10, 20, 20);
                     }
-                    if(c.aTresor){
+                    if (c.aTresor) {
                         gc.setFill(Color.RED);
-                        gc.fillOval(c.getX() * 40+10, c.getY() *40+10, 20,20);
+                        gc.fillOval(c.getX() * 40 + 10, c.getY() * 40 + 10, 20, 20);
                     }
 
                     if (!c.personages.isEmpty()) {
@@ -79,7 +79,7 @@ public class Plateau {
 
     // focntion qui display les objets et les personnages , elle parcourt la matrice et verifie si la case a un objet ou un personnage
 
-    public void fillMatrice() {
+    public Personnage fillMatrice() {
         setEau();
         setForet();
         for (int i = 0; i < n; i++) {
@@ -90,8 +90,10 @@ public class Plateau {
                 }
             }
         }
+        CorsaireJoueur cj = (CorsaireJoueur) addPersonage();
         addOutils();
         setTresor();
+        return cj;
     }
 
     public void setEau() {
@@ -158,15 +160,19 @@ public class Plateau {
     public Personnage addPersonage() {
         for (int i = 1; i <= 3; i++) {
             int index;
-            Random random = new Random();
-            index = random.nextInt(caseAccessibles.size());
+            do {
+                Random random = new Random();
+                index = random.nextInt(caseAccessibles.size());
+            } while (!caseAccessibles.get(index).personages.isEmpty());
             Flibustier f = new Flibustier(caseAccessibles.get(index));
             caseAccessibles.get(index).personages.add(f);
         }
         for (int i = 1; i <= 3; i++) {
             int index;
-            Random random = new Random();
-            index = random.nextInt(caseAccessibles.size());
+            do {
+                Random random = new Random();
+                index = random.nextInt(caseAccessibles.size());
+            } while (!caseAccessibles.get(index).personages.isEmpty());
             Boucanier b = new Boucanier(caseAccessibles.get(index));
             caseAccessibles.get(index).personages.add(b);
         }
@@ -176,7 +182,7 @@ public class Plateau {
             do {
                 Random random = new Random();
                 index = random.nextInt(caseAccessibles.size());
-            } while (caseAccessibles.get(index).getType().equals("foret"));
+            } while (caseAccessibles.get(index).getType().equals("foret") || !caseAccessibles.get(index).personages.isEmpty());
             CorsaireNonJoueur cnj = new CorsaireNonJoueur(caseAccessibles.get(index));
             caseAccessibles.get(index).personages.add(cnj);
         }
@@ -184,7 +190,7 @@ public class Plateau {
         do {
             Random random = new Random();
             index = random.nextInt(caseAccessibles.size());
-        } while (caseAccessibles.get(index).getType().equals("foret"));
+        } while (caseAccessibles.get(index).getType().equals("foret") || !caseAccessibles.get(index).personages.isEmpty());
         CorsaireJoueur cj = new CorsaireJoueur(caseAccessibles.get(index));
         System.out.println(caseAccessibles.get(index).getX() + "  " + caseAccessibles.get(index).getY());
         caseAccessibles.get(index).personages.add(cj);
@@ -214,22 +220,22 @@ public class Plateau {
 
     private void addOutils() {
         int nbCorsaire = 0;
-        for (CaseAccessible caseA : caseAccessibles){
-            for(Personnage p : caseA.personages){
-                if (Corsaire.class.equals(p.getClass())){
+        for (CaseAccessible caseA : caseAccessibles) {
+            for (Personnage p : caseA.personages) {
+                if (p instanceof Corsaire) {
                     nbCorsaire += 1;
                 }
             }
         }
         Random random = new Random();
         int index;
-        for (int i = 0; i < nbCorsaire*2; i++) {
+        for (int i = 0; i < nbCorsaire * 2; i++) {
             CaseAccessible caseA;
             Outil m = new Machette();
             do {
                 index = random.nextInt(caseAccessibles.size());
                 caseA = caseAccessibles.get(index);
-            } while (caseA.getType().equals("foret") || caseA.outil != null);
+            } while (caseA.getType().equals("foret") || caseA.outil != null || !caseA.personages.isEmpty());
             caseA.setOutil(m);
         }
 
@@ -239,27 +245,27 @@ public class Plateau {
             do {
                 index = random.nextInt(caseAccessibles.size());
                 caseA = caseAccessibles.get(index);
-            } while (caseA.outil != null);
+            } while (caseA.outil != null || !caseA.personages.isEmpty());
             caseA.setOutil(p);
         }
 
-        for (int i = 0; i < nbCorsaire*2; i++) {
+        for (int i = 0; i < nbCorsaire * 2; i++) {
             Outil mou = new Mousquet();
             CaseAccessible caseA;
             do {
                 index = random.nextInt(caseAccessibles.size());
                 caseA = caseAccessibles.get(index);
-            } while (caseA.outil != null);
+            } while (caseA.outil != null || !caseA.personages.isEmpty());
             caseA.setOutil(mou);
         }
 
-        for (int i = 0; i < nbCorsaire*2; i++) {
+        for (int i = 0; i < nbCorsaire * 2; i++) {
             Outil a = new Armure();
             CaseAccessible caseA;
             do {
                 index = random.nextInt(caseAccessibles.size());
                 caseA = caseAccessibles.get(index);
-            } while (caseA.outil != null);
+            } while (caseA.outil != null || !caseA.personages.isEmpty());
             caseA.setOutil(a);
         }
     }
@@ -279,37 +285,89 @@ public class Plateau {
         int x = c.getX();
         int y = c.getY();
 
-        if (addListCaseVisibles(x+1,y)) {
+        if (addListCaseVisibles(x, y)) {
+            listCaseVisible.add((CaseAccessible) matrice[x][y]);
+        }
+        if (addListCaseVisibles(x + 1, y)) {
             listCaseVisible.add((CaseAccessible) matrice[x + 1][y]);
         }
-        if (addListCaseVisibles(x-1,y)) {
+        if (addListCaseVisibles(x - 1, y)) {
             listCaseVisible.add((CaseAccessible) matrice[x - 1][y]);
         }
-        if (addListCaseVisibles(x,y+1)) {
+        if (addListCaseVisibles(x, y + 1)) {
             listCaseVisible.add((CaseAccessible) matrice[x][y + 1]);
         }
-        if (addListCaseVisibles(x,y-1)) {
+        if (addListCaseVisibles(x, y - 1)) {
             listCaseVisible.add((CaseAccessible) matrice[x][y - 1]);
         }
-        if (addListCaseVisibles(x+1,y+1)) {
+        if (addListCaseVisibles(x + 1, y + 1)) {
             listCaseVisible.add((CaseAccessible) matrice[x + 1][y + 1]);
         }
-        if (addListCaseVisibles(x+1,y-1)) {
+        if (addListCaseVisibles(x + 1, y - 1)) {
             listCaseVisible.add((CaseAccessible) matrice[x + 1][y - 1]);
         }
-        if (addListCaseVisibles(x-1,y-1)) {
+        if (addListCaseVisibles(x - 1, y - 1)) {
             listCaseVisible.add((CaseAccessible) matrice[x - 1][y - 1]);
         }
-        if (addListCaseVisibles(x-1,y+1)) {
+        if (addListCaseVisibles(x - 1, y + 1)) {
             listCaseVisible.add((CaseAccessible) matrice[x - 1][y + 1]);
         }
-        if (addListCaseVisibles(x,y)) {
-            listCaseVisible.add((CaseAccessible) matrice[x][y]);
+
+        if (addListCaseVisibles(x + 2, y)) {
+            listCaseVisible.add((CaseAccessible) matrice[x + 2][y]);
+        }
+        if (addListCaseVisibles(x + 2, y - 1)) {
+            listCaseVisible.add((CaseAccessible) matrice[x + 2][y - 1]);
+        }
+        if (addListCaseVisibles(x + 2, y - 2)) {
+            listCaseVisible.add((CaseAccessible) matrice[x + 2][y - 2]);
+        }
+        if (addListCaseVisibles(x + 2, y + 1)) {
+            listCaseVisible.add((CaseAccessible) matrice[x + 2][y + 1]);
+        }
+        if (addListCaseVisibles(x + 2, y + 2)) {
+            listCaseVisible.add((CaseAccessible) matrice[x + 2][y + 2]);
+        }
+
+        if (addListCaseVisibles(x - 2, y)) {
+            listCaseVisible.add((CaseAccessible) matrice[x - 2][y]);
+        }
+        if (addListCaseVisibles(x - 2, y - 1)) {
+            listCaseVisible.add((CaseAccessible) matrice[x - 2][y - 1]);
+        }
+        if (addListCaseVisibles(x - 2, y - 2)) {
+            listCaseVisible.add((CaseAccessible) matrice[x - 2][y - 2]);
+        }
+        if (addListCaseVisibles(x - 2, y + 1)) {
+            listCaseVisible.add((CaseAccessible) matrice[x - 2][y + 1]);
+        }
+        if (addListCaseVisibles(x - 2, y + 2)) {
+            listCaseVisible.add((CaseAccessible) matrice[x - 2][y + 2]);
+        }
+
+        if (addListCaseVisibles(x, y - 2)) {
+            listCaseVisible.add((CaseAccessible) matrice[x][y - 2]);
+        }
+        if (addListCaseVisibles(x - 1, y - 2)) {
+            listCaseVisible.add((CaseAccessible) matrice[x - 1][y - 2]);
+        }
+        if (addListCaseVisibles(x + 1, y - 2)) {
+            listCaseVisible.add((CaseAccessible) matrice[x + 1][y - 2]);
+        }
+
+        if (addListCaseVisibles(x, y + 2)) {
+            listCaseVisible.add((CaseAccessible) matrice[x][y + 2]);
+        }
+        if (addListCaseVisibles(x - 1, y + 2)) {
+            listCaseVisible.add((CaseAccessible) matrice[x - 1][y + 2]);
+        }
+        if (addListCaseVisibles(x + 1, y + 2)) {
+            listCaseVisible.add((CaseAccessible) matrice[x + 1][y + 2]);
         }
         return listCaseVisible;
     }
 
-    public void setTresor(){
+    public void setTresor() {
         int index;
         Random random = new Random();
         index = random.nextInt(caseAccessibles.size());

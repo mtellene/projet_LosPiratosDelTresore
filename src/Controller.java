@@ -36,8 +36,7 @@ public class Controller extends Application {
         root.getChildren().add(canvas);
 
 
-        plateauPartie.fillMatrice();
-        CorsaireJoueur cj = (CorsaireJoueur) plateauPartie.addPersonage();
+        CorsaireJoueur cj = (CorsaireJoueur) plateauPartie.fillMatrice();
         plateauPartie.displayMatrice(gc);
         cj.ramasse();
         cj.creuser();
