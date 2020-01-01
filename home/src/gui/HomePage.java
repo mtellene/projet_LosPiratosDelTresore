@@ -16,7 +16,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 public class HomePage extends Application {
-	Scene scene1, scene2,scene3,scene4,sceneHome,scene6;
+	Scene scene1, scene2,scene3,scene4,sceneHome;
     
 	@Override
 	public void start(Stage primaryStage) {
@@ -49,12 +49,13 @@ public class HomePage extends Application {
 	Label label2= new Label("Level");
 	Button b = new Button("Facile");
 	b.setPrefSize(180, 20);
-	b.setOnAction(e -> primaryStage.setScene(scene3)); 
+	b.setOnAction(e -> primaryStage.setScene(sceneHome)); 
 	Button bb = new Button("Moyene");
 	bb.setPrefSize(180, 20);
+	bb.setOnAction(e -> primaryStage.setScene(sceneHome));
 	Button bbb = new Button("Difficile");
 	bbb.setPrefSize(180, 20);
-	b.setOnAction(e -> primaryStage.setScene(scene3));
+	bbb.setOnAction(e -> primaryStage.setScene(sceneHome));
 	VBox layout2= new VBox(20);
 	layout2.getChildren().addAll(label2,b,bb, bbb);
 	layout2.setAlignment(Pos.CENTER);
@@ -88,7 +89,14 @@ public class HomePage extends Application {
 		layout4.setAlignment(Pos.CENTER);
 		scene4= new Scene(layout4,300,250);
 		
-	
+
+		//Scene Home Platforme De lapplication
+			Label labelhome= new Label("Platforme");
+			
+			VBox layouthome= new VBox(20);
+			layout3.getChildren().addAll(labelhome);
+			layout3.setAlignment(Pos.CENTER);
+			sceneHome= new Scene(layouthome,300,250);
 		
 	primaryStage.setScene(scene1);
 	primaryStage.show();
