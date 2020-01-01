@@ -65,7 +65,6 @@ public class CorsaireJoueur extends Corsaire {
             ramasse();
             creuser();
             position = caseDeplacement;
-            Plateau.deplacement();
         }else{
             System.out.println("Veuillez reclicker");
         }

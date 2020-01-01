@@ -106,7 +106,6 @@ public class Plateau {
                 radomJ = random.nextInt(n);
             } while (matrice[radomI][radomJ] != null);
             matrice[radomI][radomJ] = new Eau(radomI, radomJ);
-            System.out.println("eau :" + radomI + " " + radomJ);
         }
     }
 
@@ -121,7 +120,6 @@ public class Plateau {
             } while (matrice[radomI][radomJ] != null);
             matrice[radomI][radomJ] = new Foret(radomI, radomJ);
             caseAccessibles.add((CaseAccessible) matrice[radomI][radomJ]);
-            System.out.println("Foret :" + radomI + " " + radomJ);
         }
     }
 
@@ -192,7 +190,6 @@ public class Plateau {
             index = random.nextInt(caseAccessibles.size());
         } while (caseAccessibles.get(index).getType().equals("foret") || !caseAccessibles.get(index).personages.isEmpty());
         CorsaireJoueur cj = new CorsaireJoueur(caseAccessibles.get(index));
-        System.out.println(caseAccessibles.get(index).getX() + "  " + caseAccessibles.get(index).getY());
         caseAccessibles.get(index).personages.add(cj);
 
 

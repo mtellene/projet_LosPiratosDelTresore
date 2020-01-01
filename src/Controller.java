@@ -42,6 +42,7 @@ public class Controller extends Application {
         cj.creuser();
         canvas.setOnMouseClicked( e ->{
             cj.deplacement(e);
+            Plateau.deplacement();
             gc.clearRect(0,0,canvasWidthHeight,canvasWidthHeight);
             plateauPartie.displayMatrice(gc);
         });
@@ -55,7 +56,6 @@ public class Controller extends Application {
         stage.setTitle("LosPiratosDelTresore");
         // Display the Stage
         stage.show();
-
-        System.out.println("bla");
+        System.out.println("Bonne chance ! ");
     }
 }

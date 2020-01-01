@@ -29,12 +29,13 @@ public class Pirate extends Personnage {
             Corsaire cible;
             for (Personnage p : position.personages){
                 if ( p instanceof CorsaireNonJoueur){
-                    System.out.println("un Corsaire est attaqué");
+                    System.out.println("un Corsaire est attaqué par un Boucanier");
                     cible = (Corsaire) p;
                     int pWinAttaquant;
                     Random random = new Random();
                     pWinAttaquant = random.nextInt(100);
                     if (pWinAttaquant > cible.pWin){
+                        cible.position.personages.remove(cible);
                         position.personages.remove(cible);
                         System.out.println("un Corsaire est mort");
                     }else{
@@ -42,8 +43,8 @@ public class Pirate extends Personnage {
                         System.out.println("un Boucanier est mort");
                     }
                 }
-                if ( p instanceof CorsaireJoueur){
-                    System.out.println("Vous etes attaqué");
+                else if ( p instanceof CorsaireJoueur){
+                    System.out.println("Vous etes attaqué par un Boucanier");
                     cible = (Corsaire) p;
                     int pWinAttaquant;
                     Random random = new Random();
@@ -71,7 +72,7 @@ public class Pirate extends Personnage {
                     }
                 }
             }
-        }else{
+        }else if(this instanceof Flibustier){
             // attaque flibustier
             Corsaire cible = null;
             int x = position.getX();
@@ -125,7 +126,9 @@ public class Pirate extends Personnage {
                 Random random = new Random();
                 pWinAttaquant = random.nextInt(100);
                 if (cible instanceof CorsaireNonJoueur){
+                    System.out.println(cible.getClass() +"un Corsaire est attaqué par un Flibustier");
                     if (pWinAttaquant > cible.pWin){
+                        cible.position.personages.remove(cible);
                         position.personages.remove(cible);
                         System.out.println("un Corsaire est mort");
                     }else{
@@ -133,6 +136,7 @@ public class Pirate extends Personnage {
                         System.out.println("un Flibustier est mort");
                     }
                 }else{
+                    System.out.println("Vous etes attaqué par un Flibustier");
                     if (pWinAttaquant > cible.pWin){
                         position.personages.remove(cible);
                         Controller.canvas.setOnMouseClicked(null);
