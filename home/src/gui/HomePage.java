@@ -5,6 +5,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
@@ -15,7 +16,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 public class HomePage extends Application {
-	Scene scene1, scene2,scene3,scene4,scene5,scene6;
+	Scene scene1, scene2,scene3,scene4,sceneHome,scene6;
     
 	@Override
 	public void start(Stage primaryStage) {
@@ -39,6 +40,7 @@ public class HomePage extends Application {
 		
 	});
 	button1.setOnAction(e -> primaryStage.setScene(scene2));   
+	button2.setOnAction(e -> primaryStage.setScene(scene4)); 
 	VBox layout1 = new VBox(20);     
 	layout1.getChildren().addAll(label1, button1,button2,button3);
 	scene1= new Scene(layout1, 300, 250);
@@ -70,8 +72,24 @@ public class HomePage extends Application {
 		layout3.getChildren().addAll(label3,rb1,rb2,rb3);
 		layout3.setAlignment(Pos.CENTER);
 		scene3= new Scene(layout3,300,250);
+		//Scene 4 Sauvgarde
+		VBox layout4= new VBox(20);
+		 CheckBox check = new CheckBox("Part :1");	
+		 check.setOnAction(e -> primaryStage.setScene(sceneHome));
+		 CheckBox check1 = new CheckBox("Part :2");
+		 check1.setOnAction(e -> primaryStage.setScene(sceneHome));
+		 CheckBox check2 = new CheckBox("Part :3");
+		 check2.setOnAction(e -> primaryStage.setScene(sceneHome));
+		 CheckBox check3 = new CheckBox("Part :4");
+		 check3.setOnAction(e -> primaryStage.setScene(sceneHome));
+		 CheckBox check4 = new CheckBox("Part :5");
+		 check4.setOnAction(e -> primaryStage.setScene(sceneHome));
+		layout4.getChildren().addAll(check,check1,check2,check3,check4);
+		layout4.setAlignment(Pos.CENTER);
+		scene4= new Scene(layout4,300,250);
+		
 	
-	        
+		
 	primaryStage.setScene(scene1);
 	primaryStage.show();
 	}
