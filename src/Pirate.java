@@ -126,7 +126,7 @@ public class Pirate extends Personnage {
                 Random random = new Random();
                 pWinAttaquant = random.nextInt(100);
                 if (cible instanceof CorsaireNonJoueur){
-                    System.out.println(cible.getClass() +"un Corsaire est attaqué par un Flibustier");
+                    System.out.println("un Corsaire est attaqué par un Flibustier");
                     if (pWinAttaquant > cible.pWin){
                         cible.position.personages.remove(cible);
                         position.personages.remove(cible);
