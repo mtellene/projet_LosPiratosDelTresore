@@ -11,7 +11,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 public class HomePage extends Application {
-	Scene scene1, scene2,scene3,scene4,sceneHome;
+	Scene scene1, scene2,scene3,sceneHome;
 
     
 	@Override
@@ -36,7 +36,7 @@ public class HomePage extends Application {
 		
 	});
 	button1.setOnAction(e -> primaryStage.setScene(scene2));   
-	button2.setOnAction(e -> primaryStage.setScene(scene4)); 
+	button2.setOnAction(e -> primaryStage.setScene(scene3)); 
 	VBox layout1 = new VBox(20);     
 	layout1.getChildren().addAll(label1, button1,button2,button3);
 	scene1= new Scene(layout1, 300, 500);
@@ -84,7 +84,7 @@ public class HomePage extends Application {
 		 check4.setOnAction(e -> primaryStage.setScene(sceneHome));
 		layout4.getChildren().addAll(check,check1,check2,check3,check4);
 		layout4.setAlignment(Pos.CENTER);
-		scene4= new Scene(layout4,300,250);
+		scene3= new Scene(layout4,300,250);
 		
 
 		//Scene Home Platforme De lapplication

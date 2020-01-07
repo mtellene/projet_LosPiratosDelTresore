@@ -9,8 +9,8 @@ import javafx.stage.Stage;
 public class Controller extends Application {
 
     public static Canvas canvas;
-    public int n = 15;
-    public int pirateNumber = 3;
+    public static int n = 15;
+    public static int pirateNumber = 3;
 
     public static void main(String[] args) {
         Application.launch(args);
