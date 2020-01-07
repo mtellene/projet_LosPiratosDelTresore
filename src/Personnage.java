@@ -7,6 +7,11 @@ public  class Personnage {
         position = c;
     }
 
+    /**
+     * Move a Personnage in the Matrix
+     *
+     * @param nombreDeCase the range of the movement
+     */
     public void deplacement(int nombreDeCase) {
         boolean deplace = false;
         Case caseProchaine = null;

@@ -10,7 +10,6 @@ import javafx.stage.StageStyle;
 
 public class Corsaire extends Personnage {
 
-    //variables
     public Pelle pelle = null;
     public Machette machette = null;
     public Armure armure = null;
@@ -18,11 +17,13 @@ public class Corsaire extends Personnage {
 
     public int pWin = 0;
 
-    //methodes
     public Corsaire(CaseAccessible c){
         super(c);
     }
 
+    /**
+     * Pick up an Outil if exist
+     */
     public void ramasse(){
         Outil outil = this.position.outil;
         if (outil != null){
@@ -46,6 +47,9 @@ public class Corsaire extends Personnage {
         setPourcentageVictoire();
     }
 
+    /**
+     * Dig the Case if the Corsaire have a Pelle
+     */
     public void creuser(){
         if (this.pelle != null){
             this.position.creuse = true;
@@ -88,6 +92,9 @@ public class Corsaire extends Personnage {
         }
     }
 
+    /**
+     * set Percent of win in a fight
+     */
     public void setPourcentageVictoire(){
         if(armure != null){
             if(mousquet != null) { pWin = 100;}
@@ -102,6 +109,11 @@ public class Corsaire extends Personnage {
     }
 
 
+    /**
+     * Move , pick up, and dig
+     *
+     * @param nombreDeCase the range of the movement
+     */
     @Override
     public void deplacement(int nombreDeCase) {
         super.deplacement(nombreDeCase);

@@ -10,10 +10,17 @@ public class CaseAccessible extends Case {
         super(x, y);
     }
 
+    /**
+     * set the Tresor
+     */
     public void setaTresor(){
         aTresor = true;
     }
 
+    /**
+     * set the Outil
+     * @param outil the object to set
+     */
     public void setOutil(Outil outil) {
         this.outil = outil;
     }

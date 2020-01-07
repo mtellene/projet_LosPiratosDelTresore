@@ -16,7 +16,10 @@ public class Plateau {
         matrice = new Case[n][n];
     }
 
-    // display les elements sable , eau , foret et les personnages
+    /**
+     * draw the Matrix
+     * @param gc the graphic context used to draw
+     */
     public void displayMatrice(GraphicsContext gc) {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
@@ -67,8 +70,6 @@ public class Plateau {
                             }
                         }
                     }
-
-
                 } else {
                     gc.setFill(Color.BLUE);
                     gc.fillRect(i * 40, j * 40, 40, 40);
@@ -79,6 +80,11 @@ public class Plateau {
 
     // focntion qui display les objets et les personnages , elle parcourt la matrice et verifie si la case a un objet ou un personnage
 
+    /**
+     * fill the Matrix with all items
+     *
+     * @return the CorsaireJoueur object
+     */
     public Personnage fillMatrice() {
         setEau();
         setForet();
@@ -96,7 +102,10 @@ public class Plateau {
         return cj;
     }
 
-    public void setEau() {
+    /**
+     * add the Cases with type "eau"
+     */
+    private void setEau() {
         int radomI, radomJ;
         int fivePercent = ((n * n) * 5) / 100;
         Random random = new Random();
@@ -109,7 +118,10 @@ public class Plateau {
         }
     }
 
-    public void setForet() {
+    /**
+     * add the Cases with type "foret"
+     */
+    private void setForet() {
         int radomI, radomJ;
         int fivePercent = ((n * n) * 5) / 100;
         Random random = new Random();
@@ -123,7 +135,9 @@ public class Plateau {
         }
     }
 
-
+    /**
+     * open an icon of the specific Personnage
+     */
     private File openPersonageIcon(Object personage) {
         String path = "Icons/";
         if (Flibustier.class.equals(personage.getClass())) {
@@ -139,6 +153,9 @@ public class Plateau {
         }
     }
 
+    /**
+     * open an icon of the specific Outil
+     */
     private File openOutilIcon(Object outil) {
         String path = "Icons/";
         if (Armure.class.equals(outil.getClass())) {
@@ -154,8 +171,11 @@ public class Plateau {
         }
     }
 
-
-    public Personnage addPersonage() {
+    /**
+     * add the Personnages in the Matrix
+     * @return the CorsaireJoueur object
+     */
+    private Personnage addPersonage() {
         for (int i = 1; i <= 3; i++) {
             int index;
             do {
@@ -196,6 +216,9 @@ public class Plateau {
         return cj;
     }
 
+    /**
+     * Move all the Personnage in the Matrix
+     */
     public static void deplacement() {
         ArrayList<Pirate> pirates = new ArrayList<>();
         ArrayList<CorsaireNonJoueur> corsaireNonJoueurs = new ArrayList<>();
@@ -227,6 +250,9 @@ public class Plateau {
         }
     }
 
+    /**
+     * set the Outils in the matrix
+     */
     private void addOutils() {
         int nbCorsaire = 0;
         for (CaseAccessible caseA : caseAccessibles) {
@@ -279,7 +305,15 @@ public class Plateau {
         }
     }
 
-    public static boolean addListCaseVisibles(int x, int y) {
+    /**
+     * Check if a Case is out of the matrix and is not a type "eau"
+     *
+     * @param x the x coordinate of a Case
+     * @param y the y coordinate of a Case
+     *
+     * @return if the Case is able o be add or not
+     */
+    static boolean addListCaseVisibles(int x, int y) {
         if (x < 0 || x > n - 1) {
             return false;
         }
@@ -289,6 +323,12 @@ public class Plateau {
         return !matrice[x][y].getType().equals("eau");
     }
 
+    /**
+     * get all the visible Cases around the CorsaireJoueur
+     *
+     * @param c the position of the CorsaireJoueur
+     * @return a list of the visible Cases
+     */
     private ArrayList<CaseAccessible> caseVisible(CaseAccessible c) {
         ArrayList<CaseAccessible> listCaseVisible = new ArrayList<>();
         int x = c.getX();
@@ -376,7 +416,10 @@ public class Plateau {
         return listCaseVisible;
     }
 
-    public void setTresor() {
+    /**
+     * add the tresor in a random Case
+     */
+    private void setTresor() {
         int index;
         Random random = new Random();
         index = random.nextInt(caseAccessibles.size());

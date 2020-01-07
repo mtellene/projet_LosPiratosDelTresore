@@ -6,9 +6,14 @@ public class CorsaireJoueur extends Corsaire {
         super(c);
     }
 
+    /**
+     * Check if it is possible to move in that Case
+     *
+     * @param x the x Coordinate of a Case
+     * @param y the y Coordinate of a Case
+     * @return if it is possible to move in that Case
+     */
     public boolean verifClick(int x, int y) {
-        //provisoire
-        //boolean machette = false;
         int xPosition = position.getX() * 40;
         int yPosition = position.getY() * 40;
 
@@ -51,6 +56,11 @@ public class CorsaireJoueur extends Corsaire {
         }else {return false;}
     }
 
+    /**
+     * Move the CorsairJoeur
+     *
+     * @param event the mouseEvent ( click )
+     */
     public void deplacement(MouseEvent event) {
         int xClick = (int) event.getX();
         int yClick = (int) event.getY();

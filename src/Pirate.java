@@ -17,6 +17,11 @@ public class Pirate extends Personnage {
         super(c);
     }
 
+    /**
+     * Move the Pirate and attack before and after a movement
+     *
+     * @param nombreDeCase the range of the movement
+     */
     @Override
     public void deplacement(int nombreDeCase) {
         attaque();
@@ -24,6 +29,9 @@ public class Pirate extends Personnage {
         attaque();
     }
 
+    /**
+     * Attack if a Corsaire is in the range
+     */
     public void attaque(){
         if (this instanceof Boucanier){
             Corsaire cible;
