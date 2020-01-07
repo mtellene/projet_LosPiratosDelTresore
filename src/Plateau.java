@@ -145,7 +145,7 @@ public class Plateau {
         if (Flibustier.class.equals(personage.getClass())) {
             return new File(path + "flibustier.png");
         } else if (Boucanier.class.equals(personage.getClass())) {
-            return new File(path + "boucanier.jpg");
+            return new File(path + "boucanier.png");
         } else if (CorsaireNonJoueur.class.equals(personage.getClass())) {
             return new File(path + "corsaire2.png");
         } else if (CorsaireJoueur.class.equals(personage.getClass())) {
@@ -163,7 +163,7 @@ public class Plateau {
         if (Armure.class.equals(outil.getClass())) {
             return new File(path + "armure.png");
         } else if (Machette.class.equals(outil.getClass())) {
-            return new File(path + "machette.jpg");
+            return new File(path + "machette.png");
         } else if (Pelle.class.equals(outil.getClass())) {
             return new File(path + "pelle.png");
         } else if (Mousquet.class.equals(outil.getClass())) {
