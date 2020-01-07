@@ -9,6 +9,8 @@ import javafx.stage.Stage;
 public class Controller extends Application {
 
     public static Canvas canvas;
+    public int n = 15;
+    public int pirateNumber = 3;
 
     public static void main(String[] args) {
         Application.launch(args);
@@ -16,9 +18,8 @@ public class Controller extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        int n = 15;
         int canvasWidthHeight = n*40;
-        Plateau plateauPartie  = new Plateau(n);
+        Plateau plateauPartie  = new Plateau(n,pirateNumber);
 
 
         // Create the Canvas

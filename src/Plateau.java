@@ -8,11 +8,13 @@ import java.util.Random;
 
 public class Plateau {
     public static int n;
+    public  int piratesNumber;
     public static Case[][] matrice;
     public static ArrayList<CaseAccessible> caseAccessibles = new ArrayList<CaseAccessible>();
 
-    public Plateau(int n) {
-        Plateau.n = n;
+    public Plateau(int n , int piratesNumber) {
+        this.n = n;
+        this.piratesNumber = piratesNumber;
         matrice = new Case[n][n];
     }
 
@@ -176,7 +178,7 @@ public class Plateau {
      * @return the CorsaireJoueur object
      */
     private Personnage addPersonage() {
-        for (int i = 1; i <= 3; i++) {
+        for (int i = 1; i <= piratesNumber; i++) {
             int index;
             do {
                 Random random = new Random();
@@ -185,7 +187,7 @@ public class Plateau {
             Flibustier f = new Flibustier(caseAccessibles.get(index));
             caseAccessibles.get(index).personages.add(f);
         }
-        for (int i = 1; i <= 3; i++) {
+        for (int i = 1; i <= piratesNumber; i++) {
             int index;
             do {
                 Random random = new Random();
